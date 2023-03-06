@@ -12,6 +12,11 @@
 !src/**
 !src/**.c
 
+# Assets
+!assets
+!assets/
+!assets/**
+
 # Libft
 !libft
 

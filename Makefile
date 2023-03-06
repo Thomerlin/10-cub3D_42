@@ -1,7 +1,7 @@
 # C Compiler
 CC		:=	clang
 # Compiler flags
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	-Wall -Wextra -Werror -g
 # Removal tool
 RM		:=	rm -rf
 # Minilibx
