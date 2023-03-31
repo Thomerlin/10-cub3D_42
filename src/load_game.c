@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:54:48 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/03/05 22:47:06 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/03/30 20:15:00 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,29 @@ t_bool	is_map(char *line)
 	return (FALSE);
 }
 
-t_bool	check_map_data(char **textures, t_strc *strc)
+t_bool	read_map(t_strc *strc, char *gnl_buffer)
 {
-	if (textures[0] != NULL && ft_strncmp(".xpm", textures[0], 5))
+	char	*map_line;
+	char	*map_buffer;
+
+	if (ft_strncmp("\n\0", gnl_buffer, 3) == 0 || gnl_buffer == NULL)
+		return (FALSE);
+	map_line = ft_strdup("");
+	while (TRUE)
 	{
-		strc->map.no_textu = open(textures[0], O_RDONLY);
-		if (strc->map.no_textu < 0)
-			return (FALSE);
+		if (!gnl_buffer)
+			break ;
+		map_buffer = map_line;
+		map_line = ft_strjoin(map_buffer, gnl_buffer);
+		free(map_buffer);
+		free(gnl_buffer);
+		gnl_buffer = get_next_line(strc->map.path);
 	}
-	if (textures[1] != NULL && ft_strncmp(".xpm", textures[1], 5))
-	{
-		strc->map.so_textu = open(textures[1], O_RDONLY);
-		if (strc->map.so_textu < 0)
-			return (FALSE);
-	}
-	if (textures[2] != NULL && ft_strncmp(".xpm", textures[2], 5))
-	{
-		strc->map.we_textu = open(textures[2], O_RDONLY);
-		if (strc->map.we_textu < 0)
-			return (FALSE);
-	}
-	if (textures[3] != NULL && ft_strncmp(".xpm", textures[3], 5))
-	{
-		strc->map.ea_textu = open(textures[3], O_RDONLY);
-		if (strc->map.ea_textu < 0)
-			return (FALSE);
-	}
+	free(gnl_buffer);
+	close(strc->map.path);
+	//check_map_break_line(map_line, strc);
+	strc->map.map = ft_split(map_line, '\n');
+	free(map_line);
 	return (TRUE);
 }
 
@@ -72,7 +69,7 @@ t_bool	map_data(t_strc *strc)
 
 	textures = malloc(sizeof(char) * 5);
 	map_data = get_next_line(strc->map.path);
-	while (map_data && is_map(map_data))
+	while (map_data && is_map(map_data) == FALSE)
 	{
 		if (ft_strncmp("NO", map_data, 3) == 0)
 			textures[0] = ft_strtrim(map_data, "NO \n");
@@ -85,6 +82,9 @@ t_bool	map_data(t_strc *strc)
 		free(map_data);
 		map_data = get_next_line(strc->map.path);
 	}
+	check_text_data(textures, strc);
+	read_map(strc, map_data);
+	check_map_is_close(strc);
 	return (TRUE);
 }
 

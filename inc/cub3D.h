@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/03/05 20:25:45 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:33:51 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ typedef struct s_map
 	int		so_textu;
 	int		we_textu;
 	int		ea_textu;
-	char	**cord;
+	char	**map;
 	int		path;
-	int		x_start;
+	int		wall_start;
 }	t_map;
 
 typedef enum s_bool
 {
-	TRUE,
-	FALSE
+	FALSE,
+	TRUE
 }	t_bool;
 
 typedef struct s_strc
@@ -49,5 +49,10 @@ typedef struct s_strc
 }	t_strc;
 
 int		exit_game(t_strc *strc);
+void	exit_map_error(t_strc *strc);
 void	load_game(t_strc *strc, char *map_path);
+t_bool	check_text_data(char **textures, t_strc *strc);
+void	check_map_break_line(char *map_line, t_strc *strc);
+void	check_map_is_close(t_strc *strc);
+
 #endif
