@@ -6,13 +6,25 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:58:28 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/01 07:58:29 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:10:07 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	lower_slope(t_line *l, t_algo *c, int color)
+void	my_pixel_put(t_image *img, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x <= img->width && y <= img->height && y >= 0 && x >= 0)
+	{
+		dst = img->addr + (y * img->line_length + x
+				* (img->bits_per_pixel) / 8);
+		*(unsigned int *) dst = color;
+	}
+}
+
+static void	lower_slope(t_line *l, t_strc *c, int color)
 {
 	int	d;
 	int	i;
@@ -23,7 +35,7 @@ static void	lower_slope(t_line *l, t_algo *c, int color)
 		o = -1;
 	else
 		o = 1;
-	my_pixel_put(&c->mlx.img, l->start_x, l->start_y, color);
+	my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
 	d = (2 * fabs((double)l->dy)) - fabs((double)l->dx);
 	while (++i < fabs((double)l->dx))
 	{
@@ -35,11 +47,11 @@ static void	lower_slope(t_line *l, t_algo *c, int color)
 			l->start_y = l->start_y + o;
 			d = d + (2 * fabs((double)l->dy)) - (2 * fabs((double)l->dx));
 		}
-		my_pixel_put(&c->mlx.img, l->start_x, l->start_y, color);
+		my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
 	}
 }
 
-static void	bigger_slope(t_line *l, t_algo *c, int color)
+static void	bigger_slope(t_line *l, t_strc *c, int color)
 {
 	int	d;
 	int	i;
@@ -50,7 +62,7 @@ static void	bigger_slope(t_line *l, t_algo *c, int color)
 		o = -1;
 	else
 		o = 1;
-	my_pixel_put(&c->mlx.img, l->start_x, l->start_y, color);
+	my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
 	d = (2 * fabs((double)l->dx) - fabs((double)l->dy));
 	while (++i < fabs((double)l->dy))
 	{
@@ -62,11 +74,11 @@ static void	bigger_slope(t_line *l, t_algo *c, int color)
 			l->start_x = l->start_x + 1;
 			d = d + (2 * fabs((double)l->dx)) - (2 * fabs((double)l->dy));
 		}
-		my_pixel_put(&c->mlx.img, l->start_x, l->start_y, color);
+		my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
 	}
 }
 
-static void	drawline(t_line *line, t_algo *c, int color)
+static void	drawline(t_line *line, t_strc *c, int color)
 {
 	line->dx = line->end_x - line->start_x;
 	line->dy = line->end_y - line->start_y;
@@ -76,7 +88,7 @@ static void	drawline(t_line *line, t_algo *c, int color)
 		bigger_slope(line, c, color);
 }
 
-void	bresenham(t_vector *point1, t_vector *point2, t_algo *c, int color)
+void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color)
 {
 	t_line	*line;
 

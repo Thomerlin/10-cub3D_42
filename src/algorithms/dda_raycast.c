@@ -6,13 +6,13 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/01 07:57:24 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:10:53 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	dda(t_algo *c)
+void	dda(t_strc *c)
 {
 	c->dda.wall_pos.x = floor((double)c->map.player.pos.x);
 	c->dda.wall_pos.y = floor((double)c->map.player.pos.y);
@@ -38,7 +38,7 @@ void	dda(t_algo *c)
 	}
 }
 
-static t_texture	get_direction_texture(t_algo *c)
+static t_texture	get_direction_texture(t_strc *c)
 {
 	if (c->dda.hit.side == 0)
 	{
@@ -56,18 +56,18 @@ static t_texture	get_direction_texture(t_algo *c)
 	}
 }
 
-void	raycasting(t_algo *c, int pixel)
+void	raycasting(t_strc *c, int pixel)
 {
 	t_texture	tex;
 
-	c->draw.wall_line_height = (int) c->mlx.win.height / c->dda.perpendicular;
+	c->draw.wall_line_height = (int) c->game.win.height / c->dda.perpendicular;
 	c->draw.start = -c->draw.wall_line_height / 2 + (double) \
-		c->mlx.win.height / 2;
+		c->game.win.height / 2;
 	if (c->draw.start < 0)
 		c->draw.start = 0;
-	c->draw.end = c->draw.wall_line_height / 2 + (double) c->mlx.win.height / 2;
-	if (c->draw.end >= c->mlx.win.height)
-		c->draw.end = c->mlx.win.height - 1;
+	c->draw.end = c->draw.wall_line_height / 2 + (double) c->game.win.height / 2;
+	if (c->draw.end >= c->game.win.height)
+		c->draw.end = c->game.win.height - 1;
 	tex = get_direction_texture(c);
 	// precisa desenhar na tela funcao Draw() 
 }

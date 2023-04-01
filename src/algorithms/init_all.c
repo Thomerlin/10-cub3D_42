@@ -6,13 +6,13 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:47 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/01 07:57:48 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/01 17:59:24 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	init_step_xy(t_algo *c)
+void	init_step_xy(t_strc *c)
 {
 	if (c->dda.raydir.x < 0)
 		c->dda.step.x = -1;
@@ -24,7 +24,7 @@ void	init_step_xy(t_algo *c)
 		c->dda.step.y = 1;
 }
 
-void	init_dist_to_side(t_algo *c)
+void	init_dist_to_side(t_strc *c)
 {
 	t_vector	map_pos;
 
@@ -44,16 +44,16 @@ void	init_dist_to_side(t_algo *c)
 	init_step_xy(c);
 }
 
-void	init_camera(t_map *map, t_algo *c)
+void	init_camera(t_map *map, t_strc *c)
 {
 	double	multiplier;
 
-	multiplier = 2 * ((double)c->dda.pixel / (double) c->mlx.win.width) - 1;
+	multiplier = 2 * ((double)c->dda.pixel / (double) c->game.win.width) - 1;
 	map->player.camera.pixel.x = map->player.camera.plane.x * multiplier;
 	map->player.camera.pixel.y = map->player.camera.plane.y * multiplier;
 }
 
-void	init_raydir_and_delta(t_algo *c)
+void	init_raydir_and_delta(t_strc *c)
 {
 	c->dda.raydir.x = c->map.player.camera.pixel.x + c->map.player.dir.x;
 	c->dda.raydir.y = c->map.player.camera.pixel.y + c->map.player.dir.y;
@@ -74,7 +74,7 @@ void	init_raydir_and_delta(t_algo *c)
 	}
 }
 
-void	init_perpendicular(t_algo *c)
+void	init_perpendicular(t_strc *c)
 {
 	if (c->dda.hit.side == 0)
 		c->dda.perpendicular = c->dda.line_size.x - c->dda.delta.x;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/01 14:56:04 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:07:30 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ typedef enum s_bool
 	TRUE
 }	t_bool;
 
+typedef struct s_image
+{
+	void		*ptr;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			width;
+	int			height;
+}	t_image;
+
 /**
  * @brief struct of game information
  * 
@@ -35,7 +46,16 @@ typedef struct s_game
 	void	*mlx;
 	int		screen_width;
 	int		screen_height;
+	t_image	img;
+	t_win	win;
 }	t_game;
+
+typedef struct s_win
+{
+	void	*ptr;
+	int		width;
+	int		height;
+}	t_win;
 
 typedef struct s_rgb
 {
@@ -130,17 +150,18 @@ typedef struct s_map
  */
 typedef struct s_strc
 {
-	t_game	game;
-	t_map	map;
-}	t_strc;
-
-typedef struct s_algo
-{
-	t_game		mlx;
+	t_game		game;
 	t_map		map;
 	t_dda		dda;
 	t_draw		draw;
-}	t_algo;
+	t_player	player;
+	t_image		img;
+}	t_strc;
+
+// typedef struct s_algo
+// {
+	// 
+// }	t_algo;
 
 // load map
 /**
