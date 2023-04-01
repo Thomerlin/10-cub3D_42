@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/01 12:55:46 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/01 17:13:05 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,26 @@
 
 t_bool	check_text_data(char **textures, t_strc *strc)
 {
-	if (textures[0] != NULL && ft_strncmp(".xpm", textures[0], 5))
-	{
-		strc->map.no_textu = open(textures[0], O_RDONLY);
-		if (strc->map.no_textu < 0)
-			return (FALSE);
-	}
-	if (textures[1] != NULL && ft_strncmp(".xpm", textures[1], 5))
-	{
-		strc->map.so_textu = open(textures[1], O_RDONLY);
-		if (strc->map.so_textu < 0)
-			return (FALSE);
-	}
-	if (textures[2] != NULL && ft_strncmp(".xpm", textures[2], 5))
-	{
-		strc->map.we_textu = open(textures[2], O_RDONLY);
-		if (strc->map.we_textu < 0)
-			return (FALSE);
-	}
-	if (textures[3] != NULL && ft_strncmp(".xpm", textures[3], 5))
-	{
-		strc->map.ea_textu = open(textures[3], O_RDONLY);
-		if (strc->map.ea_textu < 0)
-			return (FALSE);
-	}
+	strc->map.no_textu = open(textures[0], O_RDONLY);
+	if (strc->map.no_textu < 0)
+		return (FALSE);
+	if (!ft_strncmp(".xpm", textures[0], 5))
+		return (FALSE);
+	strc->map.so_textu = open(textures[1], O_RDONLY);
+	if (strc->map.so_textu < 0)
+		return (FALSE);
+	if (!ft_strncmp(".xpm", textures[1], 5))
+		return (FALSE);
+	strc->map.we_textu = open(textures[2], O_RDONLY);
+	if (strc->map.we_textu < 0)
+		return (FALSE);
+	if (!ft_strncmp(".xpm", textures[2], 5))
+		return (FALSE);
+	strc->map.ea_textu = open(textures[3], O_RDONLY);
+	if (strc->map.ea_textu < 0)
+		return (FALSE);
+	if (!ft_strncmp(".xpm", textures[3], 5))
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -78,7 +74,7 @@ t_bool	check_horizontal(char **map, int x, int y)
 	return (TRUE);
 }
 
-void	check_map_is_close(t_strc *strc)
+void	check_map(t_strc *strc)
 {
 	int	x;
 	int	y;

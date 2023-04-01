@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n < llopes-n@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 12:28:07 by llopes-n          #+#    #+#             */
-/*   Updated: 2022/05/14 02:08:14 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/01 17:08:32 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ char	*ft_strchr(const char *string, int c)
 		string++;
 	}
 	if (*string == (unsigned char)c)
-		return ((char *)string);
-	return (0);
+		return (NULL);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/01 12:49:19 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:56:04 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ typedef enum s_bool
 	TRUE
 }	t_bool;
 
+/**
+ * @brief struct of game information
+ * 
+ */
 typedef struct s_game
 {
 	void	*wind;
@@ -103,6 +107,10 @@ typedef struct s_dda
 	t_vector	wall_pos;
 }	t_dda;
 
+/**
+ * @brief struct containing information of the map
+ * 
+ */
 typedef struct s_map
 {
 	int			no_textu;
@@ -115,6 +123,11 @@ typedef struct s_map
 	t_player	player;
 }	t_map;
 
+/**
+ * @brief an struct containing others structs of the game making easy for 
+ * access
+ * 
+ */
 typedef struct s_strc
 {
 	t_game	game;
@@ -129,15 +142,64 @@ typedef struct s_algo
 	t_draw		draw;
 }	t_algo;
 
+// load map
+/**
+ * @brief check map information and load textures and map info
+ * 
+ * @param strc 
+ * @return TRUE if information is correct FALSE if cannot load or 
+ * information is wrong
+ */
+t_bool	map_data(t_strc *strc);
+///
+// exit
+/**
+ * @brief close window and exit of the game with success
+ * 
+ * @param strc struct of game structs
+ * @return exit with 0
+ */
 int		exit_game(t_strc *strc);
+/**
+ * @brief if map have error free the map and exit with 1
+ * 
+ * @param strc struct of game structs
+ */
 void	exit_map_error(t_strc *strc);
+///
+
+// load game
+/**
+ * @brief call map_data and map verification and init window
+ * 
+ * @param strc struct of game structs
+ * @param map_path char of the parameter with map path
+ */
 void	load_game(t_strc *strc, char *map_path);
+///
+
+// validate
+/**
+ * @brief load textures an check textures extension
+ * 
+ * @param textures path of the textures
+ * @param strc struct of game structs
+ * @return if can open textures and extension is corret TRUE else FALSE
+ */
 t_bool	check_text_data(char **textures, t_strc *strc);
+/**
+ * @brief check if map as 2 consecutive break line 
+ * 
+ * @param map_line an array of the whole map
+ */
 void	check_map_break_line(char *map_line);
-void	check_map_is_close(t_strc *strc);
-int		wall_posix(char *map_line, int posix_mode);
-t_bool	check_lef_wall(char **map, int start_wall, int y_inx, int next_wall);
-t_bool	check_rig_wall(char **map, int start_wall, int y_inx, int next_wall);
+/**
+ * @brief check all lines of the map and validate if is correct
+ * 
+ * @param strc struct of game structs
+ */
+void	check_map(t_strc *strc);
+///
 
 // color
 int		get_rgb(int r, int g, int b);
