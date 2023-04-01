@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/01 07:56:31 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:49:19 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include "libft.h"
 # include <stdio.h>
 # include <fcntl.h>
+
+typedef enum s_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
 
 typedef struct s_game
 {
@@ -108,12 +114,6 @@ typedef struct s_map
 	int			wall_start;
 	t_player	player;
 }	t_map;
-
-typedef enum s_bool
-{
-	FALSE,
-	TRUE
-}	t_bool;
 
 typedef struct s_strc
 {
