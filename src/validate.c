@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/03/30 22:33:17 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/01 00:20:17 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,104 +41,63 @@ t_bool	check_text_data(char **textures, t_strc *strc)
 	return (TRUE);
 }
 
-void	check_map_break_line(char *map_line, t_strc *strc)
+void	check_map_break_line(char *map_line)
 {
 	if (ft_strnstr(map_line, "\n\n", ft_strlen(map_line)) || *map_line == '\0')
 	{
 		free(map_line);
-		exit_game(strc);
+		ft_printf("map is wrong\n");
+		exit(1);
 	}
 }
 
-int	wall_posix(char *map_line, int posix_mode)
+t_bool	check_vertical(char **map, int x, int y)
 {
-	int	inx;
+	int	line_len;
 
-	inx = 0;
-	while (map_line[inx] && posix_mode == 0)
-	{
-		if (map_line[inx] == '1')
-			return (inx);
-		if (map_line[inx] == '0')
-			return (-1);
-		inx++;
-	}
-	inx = ft_strlen(map_line) - 1;
-	while (map_line[inx] && posix_mode == 1)
-	{
-		if (map_line[inx] == '1')
-			return (inx);
-		if (map_line[inx] == '0')
-			return (-1);
-		inx--;
-	}
-	return (-1);
-}
-
-t_bool	check_lef_wall(char **map, int start_wall, int y_inx, int next_wall)
-{
-	if (!map[y_inx + 1])
-		return (TRUE);
-	next_wall = wall_posix(map[y_inx + 1], 0);
-	if (next_wall == -1)
+	line_len = 0;
+	while (map[line_len])
+		line_len++;
+	if (y == 0 || y == line_len - 1)
 		return (FALSE);
-	if (next_wall < start_wall)
-	{
-		while (start_wall > next_wall)
-		{
-			if (map[y_inx + 1][start_wall] != '1')
-				return (FALSE);
-			start_wall--;
-		}
-	}
-	else if (next_wall > start_wall)
-	{
-		while (start_wall < next_wall)
-		{
-			if (map[y_inx][start_wall + 1] != '1')
-				return (FALSE);
-			start_wall++;
-		}
-	}
-	return (check_lef_wall(map, start_wall, y_inx + 1, next_wall));
+	if (ft_strchr("NSEW10", map[y + 1][x]) == NULL)
+		return (FALSE);
+	if (ft_strchr("NSEW10", map[y - 1][x]) == NULL)
+		return (FALSE);
+	return (TRUE);
 }
 
-t_bool	check_rig_wall(char **map, int start_wall, int y_inx, int next_wall)
+t_bool	check_horizontal(char **map, int x, int y)
 {
-	if (!map[y_inx + 1])
-		return (TRUE);
-	next_wall = wall_posix(map[y_inx + 1], 1);
-	if (next_wall == -1)
+	if (y == 0 || y + 1 == (int)ft_strlen(map[y]))
 		return (FALSE);
-	if (next_wall < start_wall)
-	{
-		while (start_wall > next_wall)
-		{
-			if (map[y_inx][start_wall - 1] != '1')
-				return (FALSE);
-			start_wall--;
-		}
-	}
-	else if (next_wall > start_wall)
-	{
-		while (start_wall < next_wall)
-		{
-			if (map[y_inx + 1][start_wall] != '1')
-				return (FALSE);
-			start_wall++;
-		}
-	}
-	return (check_rig_wall(map, start_wall, y_inx + 1, next_wall));
+	if (ft_strchr("NSEW10", map[y][x + 1]) == NULL)
+		return (FALSE);
+	if (ft_strchr("NSEW10", map[y][x - 1]) == NULL)
+		return (FALSE);
+	return (TRUE);
 }
 
 void	check_map_is_close(t_strc *strc)
 {
-	int	wall_psx;
+	int	x;
+	int	y;
 
-	wall_psx = wall_posix(strc->map.map[0], 0);
-	if (check_lef_wall(strc->map.map, wall_psx, 0, 0) == FALSE)
-		exit_map_error(strc);
-	wall_psx = wall_posix(strc->map.map[0], 1);
-	if (check_rig_wall(strc->map.map, wall_psx, 0, 0) == FALSE)
-		exit_map_error(strc);
+	y = 0;
+	while (strc->map.map[y])
+	{
+		x = 0;
+		while (strc->map.map[y][x])
+		{
+			if (ft_strchr("NSEW0", strc->map.map[y][x]))
+			{
+				if (check_vertical(strc->map.map, x, y) == FALSE)
+					exit_map_error(strc);
+				if (check_horizontal(strc->map.map, x, y) == FALSE)
+					exit_map_error(strc);
+			}
+			x++;
+		}
+		y++;
+	}
 }

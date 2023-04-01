@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:54:48 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/03/30 20:15:00 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/01 00:19:32 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_bool	read_map(t_strc *strc, char *gnl_buffer)
 	}
 	free(gnl_buffer);
 	close(strc->map.path);
-	//check_map_break_line(map_line, strc);
+	check_map_break_line(map_line);
 	strc->map.map = ft_split(map_line, '\n');
 	free(map_line);
 	return (TRUE);
