@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/01 15:17:02 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:04:48 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_bool	read_map(t_strc *strc, char *gnl_buffer)
 	char	*map_buffer;
 
 	if (ft_strncmp("\n\0", gnl_buffer, 3) == 0 || gnl_buffer == NULL)
-		return (FALSE);
+		exit_map_error(strc, "Map is missing", gnl_buffer, FREE_CHAR);
 	map_line = ft_strdup("");
 	while (TRUE)
 	{
@@ -56,7 +56,7 @@ t_bool	read_map(t_strc *strc, char *gnl_buffer)
 	}
 	free(gnl_buffer);
 	close(strc->map.path);
-	check_map_break_line(map_line);
+	check_map_break_line(map_line, strc);
 	strc->map.map = ft_split(map_line, '\n');
 	free(map_line);
 	return (TRUE);
@@ -95,6 +95,8 @@ t_bool	map_data(t_strc *strc)
 		map_data = get_next_line(strc->map.path);
 	}
 	check_text_data(textures, strc);
+	free(textures);
+	textures = NULL;
 	read_map(strc, map_data);
 	check_map(strc);
 	return (TRUE);

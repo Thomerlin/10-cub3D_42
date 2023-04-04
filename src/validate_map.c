@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validate.c                                         :+:      :+:    :+:   */
+/*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/01 17:13:05 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:26:35 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,10 @@ t_bool	check_text_data(char **textures, t_strc *strc)
 	return (TRUE);
 }
 
-void	check_map_break_line(char *map_line)
+void	check_map_break_line(char *map_line, t_strc *strc)
 {
 	if (ft_strnstr(map_line, "\n\n", ft_strlen(map_line)) || *map_line == '\0')
-	{
-		free(map_line);
-		ft_printf("map is wrong\n");
-		exit(1);
-	}
+		exit_map_error(strc, BREAK_ERROR, map_line, FREE_CHAR);
 }
 
 t_bool	check_vertical(char **map, int x, int y)
@@ -88,9 +84,9 @@ void	check_map(t_strc *strc)
 			if (ft_strchr("NSEW0", strc->map.map[y][x]))
 			{
 				if (check_vertical(strc->map.map, x, y) == FALSE)
-					exit_map_error(strc);
+					exit_map_error(strc, ERROR_WALL, NULL, FREE_MATRIX);
 				if (check_horizontal(strc->map.map, x, y) == FALSE)
-					exit_map_error(strc);
+					exit_map_error(strc, ERROR_WALL, NULL, FREE_MATRIX);
 			}
 			x++;
 		}

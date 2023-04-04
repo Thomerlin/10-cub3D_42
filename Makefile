@@ -19,9 +19,10 @@ H_INCLUDE	:=	$(addprefix -I, $(HEADER_DIR))
 
 # Source
 SRC_DIR		:=	./src ./src/render ./src/color
-SRC			:=	main.c exit.c load_game.c validate.c load_map.c
+SRC			:=	main.c exit.c load_game.c validate_map.c load_map.c
 SRC			+=	conversion_color.c
 SRC			+=	render.c
+SRC			+=	validate_map_chars.c
 
 # Object
 OBJ_DIR		:=	obj

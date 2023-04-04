@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:44:44 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/03 22:43:59 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:04:22 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	exit_game(t_strc *strc)
 {
+	ft_free_char_matrix(&strc->map.map);
 	mlx_destroy_window(strc->game.mlx_ptr, strc->game.wind_ptr);
 	mlx_destroy_display(strc->game.mlx_ptr);
 	free(strc->game.mlx_ptr);
@@ -21,17 +22,12 @@ int	exit_game(t_strc *strc)
 	return (0);
 }
 
-void	exit_map_error(t_strc *strc)
+void	exit_map_error(t_strc *strc, char *message, char *str, int exit_mode)
 {
-	int	inx;
-
-	inx = 0;
-	while (strc->map.map[inx])
-	{
-		free(strc->map.map[inx]);
-		inx++;
-	}
-	free(strc->map.map);
-	ft_printf("map is wrong\n");
+	if (exit_mode == FREE_MATRIX)
+		ft_free_char_matrix(&strc->map.map);
+	else if (exit_mode == FREE_CHAR)
+		free (str);
+	ft_printf("%s\n", message);
 	exit(1);
 }

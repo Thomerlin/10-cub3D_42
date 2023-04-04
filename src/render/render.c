@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/04 00:48:48 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:18:03 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	img_pixel_put(t_image img, int x, int y, int color)
 	char	*pixel;
 
 	pixel = img.addr + (y * img.line_size + x * (img.bpp / 8));
-	*(unsigned int *)pixel = color;
+	*(int *)pixel = color;
 }
 
 void	render_background(t_image img, int sky_color, int floor_color)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:58:28 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/01 18:10:07 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:25:08 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	my_pixel_put(t_image *img, int x, int y, int color)
 
 	if (x <= img->width && y <= img->height && y >= 0 && x >= 0)
 	{
-		dst = img->addr + (y * img->line_length + x
-				* (img->bits_per_pixel) / 8);
+		dst = img->addr + (y * img->line_size + x * (img->bpp) / 8);
 		*(unsigned int *) dst = color;
 	}
 }
@@ -35,7 +34,7 @@ static void	lower_slope(t_line *l, t_strc *c, int color)
 		o = -1;
 	else
 		o = 1;
-	my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
+	my_pixel_put(&c->img, l->start_x, l->start_y, color);
 	d = (2 * fabs((double)l->dy)) - fabs((double)l->dx);
 	while (++i < fabs((double)l->dx))
 	{
@@ -47,7 +46,7 @@ static void	lower_slope(t_line *l, t_strc *c, int color)
 			l->start_y = l->start_y + o;
 			d = d + (2 * fabs((double)l->dy)) - (2 * fabs((double)l->dx));
 		}
-		my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
+		my_pixel_put(&c->img, l->start_x, l->start_y, color);
 	}
 }
 
@@ -62,7 +61,7 @@ static void	bigger_slope(t_line *l, t_strc *c, int color)
 		o = -1;
 	else
 		o = 1;
-	my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
+	my_pixel_put(&c->img, l->start_x, l->start_y, color);
 	d = (2 * fabs((double)l->dx) - fabs((double)l->dy));
 	while (++i < fabs((double)l->dy))
 	{
@@ -74,7 +73,7 @@ static void	bigger_slope(t_line *l, t_strc *c, int color)
 			l->start_x = l->start_x + 1;
 			d = d + (2 * fabs((double)l->dx)) - (2 * fabs((double)l->dy));
 		}
-		my_pixel_put(&c->game.img, l->start_x, l->start_y, color);
+		my_pixel_put(&c->img, l->start_x, l->start_y, color);
 	}
 }
 

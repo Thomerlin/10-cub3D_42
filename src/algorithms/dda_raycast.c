@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/01 18:33:08 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 16:17:40 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	dda(t_strc *c)
 {
-	c->dda.wall_pos.x = floor((double)c->map.player.pos.x);
-	c->dda.wall_pos.y = floor((double)c->map.player.pos.y);
+	c->dda.wall_pos.x = floor((double)c->player.pos.x);
+	c->dda.wall_pos.y = floor((double)c->player.pos.y);
 	c->dda.hit.hit = FALSE;
 	c->dda.line_size.x = c->dda.to_side.x;
 	c->dda.line_size.y = c->dda.to_side.y;
@@ -60,14 +60,14 @@ void	raycasting(t_strc *c, int pixel)
 {
 	int	tex;
 
-	c->draw.wall_line_height = (int) c->game.win.height / c->dda.perpendicular;
+	c->draw.wall_line_height = (int) c->win.height / c->dda.perpendicular;
 	c->draw.start = -c->draw.wall_line_height / 2 + (double) \
-		c->game.win.height / 2;
+		c->win.height / 2;
 	if (c->draw.start < 0)
 		c->draw.start = 0;
-	c->draw.end = c->draw.wall_line_height / 2 + (double) c->game.win.height / 2;
-	if (c->draw.end >= c->game.win.height)
-		c->draw.end = c->game.win.height - 1;
+	c->draw.end = c->draw.wall_line_height / 2 + (double) c->win.height / 2;
+	if (c->draw.end >= c->win.height)
+		c->draw.end = c->win.height - 1;
 	tex = get_direction_texture(c);
-	// precisa desenhar na tela funcao Draw() 
+	// precisa desenhar na tela funcao Draw()
 }

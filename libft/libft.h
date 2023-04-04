@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/18 17:12:28 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/03/30 21:55:45 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:03:44 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	*ft_calloc(size_t number, size_t size);
 void	*ft_memchr(const void *byte, int chr, size_t len);
 void	*ft_memmove(void *dest, const void *src, size_t len);
 void	*ft_memcpy(void *dst, const void *src, size_t len);
+void	ft_free_char_matrix(char ***matrix);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/04 00:49:50 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:29:55 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # include "libft.h"
 # include <stdio.h>
 # include <fcntl.h>
+
+# define ERROR_WALL "The map need to be close and not have spaces in the middle"
+# define BREAK_ERROR "the map have 2 consecutive break lines"
+# define MUCH_PLAYER_ERROR "number of players is more than 1"
+# define WRONG_CHAR "wrong char in the map"
+
+# define FREE_MATRIX 1
+# define FREE_CHAR 2
 
 typedef enum s_bool
 {
@@ -55,7 +63,6 @@ typedef struct s_game
 	void	*mlx_ptr;
 	int		screen_width;
 	int		screen_height;
-	t_win	win;
 }	t_game;
 
 typedef struct s_rgb
@@ -96,7 +103,8 @@ typedef struct s_player
 {
 	t_vector	dir;
 	t_vector	pos;
-	t_camera	camera;
+	char		player_dir;
+	int			player_num;
 }	t_player;
 
 typedef struct s_line
@@ -140,8 +148,6 @@ typedef struct s_map
 	int			ea_textu;
 	char		**map;
 	int			path;
-	int			wall_start;
-	t_player	player;
 }	t_map;
 
 /**
@@ -151,19 +157,30 @@ typedef struct s_map
  */
 typedef struct s_strc
 {
+	t_camera	camera;
 	t_game		game;
 	t_map		map;
 	t_dda		dda;
 	t_draw		draw;
 	t_player	player;
 	t_image		img;
+	t_win		win;
 }	t_strc;
 
+// validate map chars
+/**
+ * @brief Validate if map have corret chars and take player posix
+ * 
+ * @param strc struct of game structs
+ * @param map map matrix
+ */
+void	check_chars(t_strc *strc, char **map);
+///
 // load map
 /**
  * @brief check map information and load textures and map info
  * 
- * @param strc 
+ * @param strc struct of game structs
  * @return TRUE if information is correct FALSE if cannot load or 
  * information is wrong
  */
@@ -181,8 +198,9 @@ int		exit_game(t_strc *strc);
  * @brief if map have error free the map and exit with 1
  * 
  * @param strc struct of game structs
+ * @param message error message
  */
-void	exit_map_error(t_strc *strc);
+void	exit_map_error(t_strc *strc, char *message, char *str, int exit_mode);
 ///
 
 // load game
@@ -209,7 +227,7 @@ t_bool	check_text_data(char **textures, t_strc *strc);
  * 
  * @param map_line an array of the whole map
  */
-void	check_map_break_line(char *map_line);
+void	check_map_break_line(char *map_line, t_strc *strc);
 /**
  * @brief check all lines of the map and validate if is correct
  * 
