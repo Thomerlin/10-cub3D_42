@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/01 18:07:30 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/04 00:49:50 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,14 @@ typedef struct s_image
 {
 	void		*ptr;
 	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
+	int			bpp;
+	int			line_size;
 	int			endian;
 	int			width;
 	int			height;
+	int			sky_color;
+	int			floor_color;
 }	t_image;
-
-/**
- * @brief struct of game information
- * 
- */
-typedef struct s_game
-{
-	void	*wind;
-	void	*mlx;
-	int		screen_width;
-	int		screen_height;
-	t_image	img;
-	t_win	win;
-}	t_game;
 
 typedef struct s_win
 {
@@ -56,6 +44,19 @@ typedef struct s_win
 	int		width;
 	int		height;
 }	t_win;
+
+/**
+ * @brief struct of game information
+ * 
+ */
+typedef struct s_game
+{
+	void	*wind_ptr;
+	void	*mlx_ptr;
+	int		screen_width;
+	int		screen_height;
+	t_win	win;
+}	t_game;
 
 typedef struct s_rgb
 {
@@ -158,11 +159,6 @@ typedef struct s_strc
 	t_image		img;
 }	t_strc;
 
-// typedef struct s_algo
-// {
-	// 
-// }	t_algo;
-
 // load map
 /**
  * @brief check map information and load textures and map info
@@ -222,19 +218,28 @@ void	check_map_break_line(char *map_line);
 void	check_map(t_strc *strc);
 ///
 
+// render
+/**
+ * @brief calls all funtions of rendering
+ * 
+ * @param strc struct of game structs
+ */
+int		render(t_strc *strc);
+///
+
 // color
 int		get_rgb(int r, int g, int b);
 void	itorgb(int color, t_rgb *result);
 void	intorgb(int *r, int *g, int *b, unsigned int *color);
 
 // algorithm
-void	init_perpendicular(t_algo *c);
-void	init_raydir_and_delta(t_algo *c);
-void	init_camera(t_map *map, t_algo *c);
-void	init_dist_to_side(t_algo *c);
-void	init_step_xy(t_algo *c);
-void	raycasting(t_algo *c, int pixel);
-void	dda(t_algo *c);
-void	bresenham(t_vector *point1, t_vector *point2, t_algo *c, int color);
+void	init_perpendicular(t_strc *c);
+void	init_raydir_and_delta(t_strc *c);
+void	init_camera(t_map *map, t_strc *c);
+void	init_dist_to_side(t_strc *c);
+void	init_step_xy(t_strc *c);
+void	raycasting(t_strc *c, int pixel);
+void	dda(t_strc *c);
+void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color);
 
 #endif

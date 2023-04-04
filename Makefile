@@ -18,8 +18,10 @@ HEADER		:=	cub3D.h
 H_INCLUDE	:=	$(addprefix -I, $(HEADER_DIR))
 
 # Source
-SRC_DIR		:=	./src
+SRC_DIR		:=	./src ./src/render ./src/color
 SRC			:=	main.c exit.c load_game.c validate.c load_map.c
+SRC			+=	conversion_color.c
+SRC			+=	render.c
 
 # Object
 OBJ_DIR		:=	obj
@@ -61,7 +63,7 @@ $(LIBFT):
 
 # Run program using valgrind
 vg:
-	valgrind --tool=helgrind --log-file=log_vg  ./$(NAME) 
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=log_vg ./$(NAME) assets/maps/test.cub
 
 # Norm: checks code for norm errors
 norm:

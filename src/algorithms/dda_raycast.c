@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/01 18:10:53 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:33:08 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,27 @@ void	dda(t_strc *c)
 	}
 }
 
-static t_texture	get_direction_texture(t_strc *c)
+static int	get_direction_texture(t_strc *c)
 {
 	if (c->dda.hit.side == 0)
 	{
 		if (c->dda.raydir.x < 0)
-			return (c->map.no_tex);
+			return (c->map.no_textu);
 		else
-			return (c->map.so_tex);
+			return (c->map.so_textu);
 	}
 	else
 	{
 		if (c->dda.raydir.y < 0)
-			return (c->map.we_tex);
+			return (c->map.we_textu);
 		else
-			return (c->map.ea_tex);
+			return (c->map.ea_textu);
 	}
 }
 
 void	raycasting(t_strc *c, int pixel)
 {
-	t_texture	tex;
+	int	tex;
 
 	c->draw.wall_line_height = (int) c->game.win.height / c->dda.perpendicular;
 	c->draw.start = -c->draw.wall_line_height / 2 + (double) \
