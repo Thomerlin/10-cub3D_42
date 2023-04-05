@@ -19,6 +19,8 @@
 
 # Libft
 !libft
+!libft/
+!libft/lib/**.c
 
 # Makefile
 !Makefile

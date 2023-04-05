@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/04 19:04:48 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 23:23:27 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ t_bool	map_data(t_strc *strc)
 	}
 	check_text_data(textures, strc);
 	free(textures);
-	textures = NULL;
 	read_map(strc, map_data);
 	check_map(strc);
 	return (TRUE);
