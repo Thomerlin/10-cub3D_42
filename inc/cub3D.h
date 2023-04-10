@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/04 18:29:55 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/09 23:10:20 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libft.h"
 # include <stdio.h>
 # include <fcntl.h>
+# include <math.h>
 
 # define ERROR_WALL "The map need to be close and not have spaces in the middle"
 # define BREAK_ERROR "the map have 2 consecutive break lines"
@@ -26,6 +27,9 @@
 
 # define FREE_MATRIX 1
 # define FREE_CHAR 2
+
+# define WIDTH 	1080
+# define HEIGHT	720
 
 typedef enum s_bool
 {
@@ -46,12 +50,12 @@ typedef struct s_image
 	int			floor_color;
 }	t_image;
 
-typedef struct s_win
+typedef struct s_window
 {
 	void	*ptr;
 	int		width;
 	int		height;
-}	t_win;
+}	t_window;
 
 /**
  * @brief struct of game information
@@ -59,10 +63,12 @@ typedef struct s_win
  */
 typedef struct s_game
 {
-	void	*wind_ptr;
-	void	*mlx_ptr;
-	int		screen_width;
-	int		screen_height;
+	t_image		img;
+	// t_window	window;
+	void		*window_ptr;
+	void		*mlx_ptr;
+	int			screen_width;
+	int			screen_height;
 }	t_game;
 
 typedef struct s_rgb
@@ -103,6 +109,7 @@ typedef struct s_player
 {
 	t_vector	dir;
 	t_vector	pos;
+	t_camera	camera;
 	char		player_dir;
 	int			player_num;
 }	t_player;
@@ -113,8 +120,8 @@ typedef struct s_line
 	int	start_y;
 	int	end_x;
 	int	end_y;
-	int	dy;
-	int	dx;
+	int	dist_y;
+	int	dist_x;
 }	t_line;
 
 typedef struct s_hit
@@ -148,6 +155,9 @@ typedef struct s_map
 	int			ea_textu;
 	char		**map;
 	int			path;
+	int			s_color;
+	int			f_color;
+	t_player	player;
 }	t_map;
 
 /**
@@ -157,14 +167,14 @@ typedef struct s_map
  */
 typedef struct s_strc
 {
-	t_camera	camera;
 	t_game		game;
-	t_map		map;
-	t_dda		dda;
-	t_draw		draw;
-	t_player	player;
 	t_image		img;
-	t_win		win;
+	t_window	window;
+	t_camera	camera;
+	t_map		map;
+	t_player	player;
+	t_draw		draw;
+	t_dda		dda;
 }	t_strc;
 
 // validate map chars
@@ -251,13 +261,16 @@ void	itorgb(int color, t_rgb *result);
 void	intorgb(int *r, int *g, int *b, unsigned int *color);
 
 // algorithm
+void	img_pixel_put(t_image img, int x, int y, int color);
 void	init_perpendicular(t_strc *c);
 void	init_raydir_and_delta(t_strc *c);
-void	init_camera(t_map *map, t_strc *c);
+void	init_camera(t_strc *c);
 void	init_dist_to_side(t_strc *c);
 void	init_step_xy(t_strc *c);
 void	raycasting(t_strc *c, int pixel);
 void	dda(t_strc *c);
 void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color);
+
+void	get_player_data(t_strc *strc, int x, int y);
 
 #endif

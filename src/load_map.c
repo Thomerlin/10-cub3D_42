@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/04 23:23:27 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:44:57 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ t_bool	read_map(t_strc *strc, char *gnl_buffer)
 	check_map_break_line(map_line, strc);
 	strc->map.map = ft_split(map_line, '\n');
 	free(map_line);
+	int i = 0;
+	while (strc->map.map[i])
+	{
+		printf("%s\n", strc->map.map[i]);
+		i++;
+	}
 	return (TRUE);
 }
 
