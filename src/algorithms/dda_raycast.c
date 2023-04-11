@@ -3,71 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/04 16:17:40 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:47:46 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	dda(t_strc *c)
+void	dda(t_strc *strc)
 {
-	c->dda.wall_pos.x = floor((double)c->player.pos.x);
-	c->dda.wall_pos.y = floor((double)c->player.pos.y);
-	c->dda.hit.hit = FALSE;
-	c->dda.line_size.x = c->dda.to_side.x;
-	c->dda.line_size.y = c->dda.to_side.y;
-	while (c->dda.hit.hit == FALSE)
+	strc->dda.wall_pos.x = floor((double)strc->map.player.pos.x);
+	strc->dda.wall_pos.y = floor((double)strc->map.player.pos.y);
+	strc->dda.hit.hit = FALSE;
+	strc->dda.line_size.x = strc->dda.to_side.x;
+	strc->dda.line_size.y = strc->dda.to_side.y;
+	while (strc->dda.hit.hit == FALSE)
 	{
-		if (c->dda.line_size.x < c->dda.line_size.y)
+		if (strc->dda.line_size.x < strc->dda.line_size.y)
 		{
-			c->dda.wall_pos.x += c->dda.step.x;
-			c->dda.line_size.x += c->dda.delta.x;
-			c->dda.hit.side = 0;
+			strc->dda.wall_pos.x += strc->dda.step.x;
+			strc->dda.line_size.x += strc->dda.delta.x;
+			strc->dda.hit.side = 0;
 		}
 		else
 		{
-			c->dda.wall_pos.y += c->dda.step.y;
-			c->dda.line_size.y += c->dda.delta.y;
-			c->dda.hit.side = 1;
+			strc->dda.wall_pos.y += strc->dda.step.y;
+			strc->dda.line_size.y += strc->dda.delta.y;
+			strc->dda.hit.side = 1;
 		}
-		if (c->map.map[(int)c->dda.wall_pos.x][(int)c->dda.wall_pos.y] == '1')
-			c->dda.hit.hit = TRUE;
+		if (strc->map.map[(int)strc->dda.wall_pos.x]
+			[(int)strc->dda.wall_pos.y] == '1')
+			strc->dda.hit.hit = TRUE;
 	}
 }
 
-static int	get_direction_texture(t_strc *c)
+void	raycasting(t_strc *strc, int pixel)
 {
-	if (c->dda.hit.side == 0)
-	{
-		if (c->dda.raydir.x < 0)
-			return (c->map.no_textu);
-		else
-			return (c->map.so_textu);
-	}
-	else
-	{
-		if (c->dda.raydir.y < 0)
-			return (c->map.we_textu);
-		else
-			return (c->map.ea_textu);
-	}
-}
+	double		wall_line_height;
+	t_vector	point1;
+	t_vector	point2;
 
-void	raycasting(t_strc *c, int pixel)
-{
-	int	tex;
-
-	c->draw.wall_line_height = (int) c->win.height / c->dda.perpendicular;
-	c->draw.start = -c->draw.wall_line_height / 2 + (double) \
-		c->win.height / 2;
-	if (c->draw.start < 0)
-		c->draw.start = 0;
-	c->draw.end = c->draw.wall_line_height / 2 + (double) c->win.height / 2;
-	if (c->draw.end >= c->win.height)
-		c->draw.end = c->win.height - 1;
-	tex = get_direction_texture(c);
-	// precisa desenhar na tela funcao Draw()
+	wall_line_height = HEIGHT / strc->dda.perpendicular;
+	point1.x = (double)pixel;
+	point1.y = HEIGHT / 2 - wall_line_height / 2;
+	point2.x = (double)pixel;
+	point2.y = HEIGHT / 2 + wall_line_height / 2;
+	if (strc->dda.hit.side == 0)
+		bresenham(&point1, &point2, strc, get_rgb(255, 0, 0));
+	if (strc->dda.hit.side == 1)
+		bresenham(&point1, &point2, strc, get_rgb(0, 0, 255));
 }

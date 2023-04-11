@@ -3,91 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:58:28 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/04 15:25:08 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:47:57 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	my_pixel_put(t_image *img, int x, int y, int color)
+static void	minor_slope(t_line *line, t_strc *strc, int color)
 {
-	char	*dst;
+	int	dist;
+	int	inc;
+	int	point0;
 
-	if (x <= img->width && y <= img->height && y >= 0 && x >= 0)
-	{
-		dst = img->addr + (y * img->line_size + x * (img->bpp) / 8);
-		*(unsigned int *) dst = color;
-	}
-}
-
-static void	lower_slope(t_line *l, t_strc *c, int color)
-{
-	int	d;
-	int	i;
-	int	o;
-
-	i = -1;
-	if (l->start_y > l->end_y)
-		o = -1;
+	if (line->start_y > line->end_y)
+		point0 = -1;
 	else
-		o = 1;
-	my_pixel_put(&c->img, l->start_x, l->start_y, color);
-	d = (2 * fabs((double)l->dy)) - fabs((double)l->dx);
-	while (++i < fabs((double)l->dx))
+		point0 = 1;
+	img_pixel_put(strc->img, line->start_x, line->start_y, color);
+	dist = (2 * fabs((double) line->dist_y)) - fabs((double) line->dist_x);
+	inc = -1;
+	while (++inc < fabs((double) line->dist_x))
 	{
-		l->start_x = l->start_x + 1;
-		if (d < 0)
-			d = d + (2 * fabs((double)l->dy));
+		line->start_x++;
+		if (dist < 0)
+			dist += (2 * fabs((double) line->dist_y));
 		else
 		{
-			l->start_y = l->start_y + o;
-			d = d + (2 * fabs((double)l->dy)) - (2 * fabs((double)l->dx));
+			line->start_y = line->start_x + point0;
+			dist += (2 * fabs((double) line->dist_y) - (2 * fabs((double) \
+			line->dist_x)));
 		}
-		my_pixel_put(&c->img, l->start_x, l->start_y, color);
+		img_pixel_put(strc->img, line->start_x, line->start_y, color);
 	}
 }
 
-static void	bigger_slope(t_line *l, t_strc *c, int color)
+static void	bigger_slope(t_line *l, t_strc *strc, int color)
 {
-	int	d;
-	int	i;
-	int	o;
+	int	dist;
+	int	inc;
+	int	point0;
 
-	i = -1;
 	if (l->start_y > l->end_y)
-		o = -1;
+		point0 = -1;
 	else
-		o = 1;
-	my_pixel_put(&c->img, l->start_x, l->start_y, color);
-	d = (2 * fabs((double)l->dx) - fabs((double)l->dy));
-	while (++i < fabs((double)l->dy))
+		point0 = 1;
+	img_pixel_put(strc->img, l->start_x, l->start_y, color);
+	inc = -1;
+	dist = (2 * fabs((double)l->dist_x) - fabs((double)l->dist_y));
+	while (++inc < fabs((double)l->dist_y))
 	{
-		l->start_y = l->start_y + o;
-		if (d < 0)
-			d = d + (2 * fabs((double)l->dx));
+		l->start_y += point0;
+		if (dist < 0)
+			dist += (2 * fabs((double)l->dist_x));
 		else
 		{
-			l->start_x = l->start_x + 1;
-			d = d + (2 * fabs((double)l->dx)) - (2 * fabs((double)l->dy));
+			l->start_x++;
+			dist += (2 * fabs((double)l->dist_x)) - (2 * fabs((double)
+						l->dist_y));
 		}
-		my_pixel_put(&c->img, l->start_x, l->start_y, color);
+		img_pixel_put(strc->img, l->start_x, l->start_y, color);
 	}
 }
 
-static void	drawline(t_line *line, t_strc *c, int color)
+static void	drawline(t_line *line, t_strc *strc, int color)
 {
-	line->dx = line->end_x - line->start_x;
-	line->dy = line->end_y - line->start_y;
-	if (fabs((double)line->dx) > fabs((double)line->dy))
-		lower_slope(line, c, color);
+	line->dist_x = line->end_x - line->start_x;
+	line->dist_y = line->end_y - line->start_y;
+	if (fabs((double)line->dist_x) > fabs((double)line->dist_y))
+		minor_slope(line, strc, color);
 	else
-		bigger_slope(line, c, color);
+		bigger_slope(line, strc, color);
 }
 
-void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color)
+void	bresenham(t_vector *point1, t_vector *point2, t_strc *strc, int color)
 {
 	t_line	*line;
 
@@ -106,6 +97,6 @@ void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color)
 		line->end_y = point1->y;
 		line->start_y = point2->y;
 	}
-	drawline(line, c, color);
+	drawline(line, strc, color);
 	free(line);
 }

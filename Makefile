@@ -5,7 +5,7 @@ CFLAGS	:=	-Wall -Wextra -Werror -g
 # Removal tool
 RM		:=	rm -rf
 # Minilibx
-MINILIBX := -lmlx -lXext -lX11
+MINILIBX := -lmlx -lXext -lX11 -lm
 
 
 # PROGRAM
@@ -18,10 +18,10 @@ HEADER		:=	cub3D.h
 H_INCLUDE	:=	$(addprefix -I, $(HEADER_DIR))
 
 # Source
-SRC_DIR		:=	./src ./src/render ./src/color
+SRC_DIR		:=	./src ./src/render ./src/color ./src/algorithms
 SRC			:=	main.c exit.c load_game.c validate_map.c load_map.c
-SRC			+=	conversion_color.c
-SRC			+=	render.c
+SRC			+=	conversion_color.c init_all.c dda_raycast.c bresenham.c
+SRC			+=	render.c player.c
 SRC			+=	validate_map_chars.c
 
 # Object

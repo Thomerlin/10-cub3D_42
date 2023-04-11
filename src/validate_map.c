@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/04 18:26:35 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:41:12 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	check_map(t_strc *strc)
 		{
 			if (ft_strchr("NSEW0", strc->map.map[y][x]))
 			{
+				// get_player_data(strc, x, y); Sef fault ordens trocadas ??
 				if (check_vertical(strc->map.map, x, y) == FALSE)
 					exit_map_error(strc, ERROR_WALL, NULL, FREE_MATRIX);
 				if (check_horizontal(strc->map.map, x, y) == FALSE)
