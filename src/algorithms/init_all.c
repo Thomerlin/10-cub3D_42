@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:47 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/04 16:17:30 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/04 23:54:16 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	init_camera(t_map *map, t_strc *c)
 	double	multiplier;
 
 	multiplier = 2 * ((double)c->dda.pixel / (double) c->win.width) - 1;
-	c->player.camera.pixel.x = c->player.camera.plane.x * multiplier;
-	c->player.camera.pixel.y = c->player.camera.plane.y * multiplier;
+	c->camera.pixel.x = c->camera.plane.x * multiplier;
+	c->camera.pixel.y = c->camera.plane.y * multiplier;
 }
 
 void	init_raydir_and_delta(t_strc *c)
 {
-	c->dda.raydir.x = c->player.camera.pixel.x + c->player.dir.x;
-	c->dda.raydir.y = c->player.camera.pixel.y + c->player.dir.y;
+	c->dda.raydir.x = c->camera.pixel.x + c->player.dir.x;
+	c->dda.raydir.y = c->camera.pixel.y + c->player.dir.y;
 	if (c->dda.raydir.x == 0)
 	{
 		c->dda.delta.x = 1;
