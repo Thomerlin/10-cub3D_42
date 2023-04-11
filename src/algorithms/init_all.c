@@ -6,11 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:47 by tyago-ri          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/04/04 23:54:16 by llopes-n         ###   ########.fr       */
-=======
-/*   Updated: 2023/04/11 16:33:22 by llopes-n         ###   ########.fr       */
->>>>>>> develop
+/*   Updated: 2023/04/11 16:39:28 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +49,17 @@ void	init_camera(t_strc *strc)
 {
 	double	multiplier;
 
-<<<<<<< HEAD
-	multiplier = 2 * ((double)c->dda.pixel / (double) c->win.width) - 1;
-	c->camera.pixel.x = c->camera.plane.x * multiplier;
-	c->camera.pixel.y = c->camera.plane.y * multiplier;
-=======
 	multiplier = 2 * ((double)strc->dda.pixel / \
 	(double) strc->window.width) - 1;
 	strc->player.camera.pixel.x = strc->player.camera.plane.x * multiplier;
 	strc->player.camera.pixel.y = strc->player.camera.plane.y * multiplier;
->>>>>>> develop
 }
 
 void	init_raydir_and_delta(t_strc *strc)
 {
-<<<<<<< HEAD
-	c->dda.raydir.x = c->camera.pixel.x + c->player.dir.x;
-	c->dda.raydir.y = c->camera.pixel.y + c->player.dir.y;
-	if (c->dda.raydir.x == 0)
-=======
 	strc->dda.raydir.x = strc->player.camera.pixel.x + strc->player.dir.x;
 	strc->dda.raydir.y = strc->player.camera.pixel.y + strc->player.dir.y;
 	if (strc->dda.raydir.x == 0)
->>>>>>> develop
 	{
 		strc->dda.delta.x = 1;
 		strc->dda.delta.y = 0;

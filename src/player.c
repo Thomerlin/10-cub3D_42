@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 22:58:00 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/11 15:41:05 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:47:28 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ void	rotate_vector(t_vector *vector, double ang)
 
 void	rotate_player(t_strc *strc, int x, int y)
 {
-	if (strc->map.map[x][y] == 'N')
+	if (strc->map.map[y][x] == 'N')
 	{
 		rotate_vector(&strc->player.dir, 270);
 		rotate_vector(&strc->player.camera.plane, 270);
 	}
-	if (strc->map.map[x][y] == 'E')
+	if (strc->map.map[y][x] == 'E')
 	{
 		rotate_vector(&strc->player.dir, 180);
 		rotate_vector(&strc->player.camera.plane, 180);
 	}
-	if (strc->map.map[x][y] == 'S')
+	if (strc->map.map[y][x] == 'S')
 	{
 		rotate_vector(&strc->player.dir, 90);
 		rotate_vector(&strc->player.camera.plane, 90);
@@ -47,14 +47,17 @@ void	rotate_player(t_strc *strc, int x, int y)
 
 void	get_player_data(t_strc *strc, int x, int y)
 {
-	strc->player.pos.x = x + 0.5;
-	strc->player.pos.y = y + 0.5;
-	strc->player.dir.x = 0;
-	strc->player.dir.y = -1;
-	strc->player.camera.plane.x = 0.66;
-	strc->player.camera.plane.y = 0;
-	strc->player.camera.pixel.x = 0;
-	strc->player.camera.pixel.y = 0;
-	rotate_player(strc, x, y);
-	strc->map.map[x][y] = '0';
+	if (ft_strchr("NSEW", strc->map.map[y][x]))
+	{
+		strc->player.pos.x = x + 0.5;
+		strc->player.pos.y = y + 0.5;
+		strc->player.dir.x = 0;
+		strc->player.dir.y = -1;
+		strc->player.camera.plane.x = 0.66;
+		strc->player.camera.plane.y = 0;
+		strc->player.camera.pixel.x = 0;
+		strc->player.camera.pixel.y = 0;
+		rotate_player(strc, x, y);
+		strc->map.map[y][x] = '0';
+	}
 }
