@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/09 23:10:20 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:36:34 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 # define BREAK_ERROR "the map have 2 consecutive break lines"
 # define MUCH_PLAYER_ERROR "number of players is more than 1"
 # define WRONG_CHAR "wrong char in the map"
+# define TEXT_ERROR "missing texture or wrong path"
 
-# define FREE_MATRIX 1
-# define FREE_CHAR 2
+# define FREE_MAP 1
+# define FREE_STR 2
 
 # define WIDTH 	1080
 # define HEIGHT	720
@@ -209,6 +210,9 @@ int		exit_game(t_strc *strc);
  * 
  * @param strc struct of game structs
  * @param message error message
+ * @param str char to be free
+ * @param exit_mode exit with 3 diferent options: 0 only exit; 1 or FREE_MATRIX
+ *  free the map and exit; 2 or FREE_STR free str param and exit
  */
 void	exit_map_error(t_strc *strc, char *message, char *str, int exit_mode);
 ///

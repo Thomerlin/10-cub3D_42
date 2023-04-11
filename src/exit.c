@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:44:44 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/09 20:22:02 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:38:44 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	exit_game(t_strc *strc)
 
 void	exit_map_error(t_strc *strc, char *message, char *str, int exit_mode)
 {
-	if (exit_mode == FREE_MATRIX)
+	if (exit_mode == FREE_MAP)
 		ft_free_char_matrix(&strc->map.map);
-	else if (exit_mode == FREE_CHAR)
+	else if (exit_mode == FREE_STR)
 		free (str);
 	ft_printf("%s\n", message);
 	exit(1);

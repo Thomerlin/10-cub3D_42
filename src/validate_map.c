@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/11 16:41:47 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:37:19 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_bool	check_text_data(char **textures, t_strc *strc)
 void	check_map_break_line(char *map_line, t_strc *strc)
 {
 	if (ft_strnstr(map_line, "\n\n", ft_strlen(map_line)) || *map_line == '\0')
-		exit_map_error(strc, BREAK_ERROR, map_line, FREE_CHAR);
+		exit_map_error(strc, BREAK_ERROR, map_line, FREE_STR);
 }
 
 t_bool	check_vertical(char **map, int x, int y)
@@ -85,9 +85,9 @@ void	check_map(t_strc *strc)
 			{
 				get_player_data(strc, x, y);
 				if (check_vertical(strc->map.map, x, y) == FALSE)
-					exit_map_error(strc, ERROR_WALL, NULL, FREE_MATRIX);
+					exit_map_error(strc, ERROR_WALL, NULL, FREE_MAP);
 				if (check_horizontal(strc->map.map, x, y) == FALSE)
-					exit_map_error(strc, ERROR_WALL, NULL, FREE_MATRIX);
+					exit_map_error(strc, ERROR_WALL, NULL, FREE_MAP);
 			}
 			x++;
 		}

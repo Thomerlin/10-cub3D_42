@@ -1,7 +1,7 @@
-       NO ../texture/
-SO ../texture/
-WE ../texture/
-EA ../texture/
+       NO ./assets/texture/north_texture.xpm
+SO ./assets/texture/south_texture.xpm
+WE ./assets/texture/west_texture.xpm
+EA ./assets/texture/east_texture.xpm
 
 F 0,0,0
 C 0,0,0
