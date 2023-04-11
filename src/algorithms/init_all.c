@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:47 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/09 22:55:29 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:50:15 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	init_dist_to_side(t_strc *strc)
 	map_pos.x = floor(strc->player.pos.x);
 	map_pos.y = floor(strc->player.pos.y);
 	if (strc->dda.raydir.x < 0)
-		strc->dda.to_side.x = (strc->player.pos.x - map_pos.x) * strc->dda.delta.x;
+		strc->dda.to_side.x = (strc->player.pos.x - map_pos.x) * \
+		strc->dda.delta.x;
 	else
 		strc->dda.to_side.x = (map_pos.x + 1 - strc->player.pos.x)
 			* strc->dda.delta.x;
@@ -48,7 +49,8 @@ void	init_camera(t_strc *strc)
 {
 	double	multiplier;
 
-	multiplier = 2 * ((double)strc->dda.pixel / (double) strc->window.width) - 1;
+	multiplier = 2 * ((double)strc->dda.pixel / \
+	(double) strc->window.width) - 1;
 	strc->player.camera.pixel.x = strc->player.camera.plane.x * multiplier;
 	strc->player.camera.pixel.y = strc->player.camera.plane.y * multiplier;
 }
@@ -77,13 +79,9 @@ void	init_raydir_and_delta(t_strc *strc)
 void	init_perpendicular(t_strc *strc)
 {
 	if (strc->dda.hit.side == 0)
-		strc->dda.perpendicular = fabs(strc->dda.wall_pos.x - strc->player.pos.x \
-		+ ((1 - strc->dda.step.x) / 2)) / strc->dda.raydir.x;
+		strc->dda.perpendicular = fabs(strc->dda.wall_pos.x - \
+		strc->player.pos.x + ((1 - strc->dda.step.x) / 2)) / strc->dda.raydir.x;
 	else
-		strc->dda.perpendicular = fabs(strc->dda.wall_pos.y - strc->player.pos.y \
-		+ ((1 - strc->dda.step.y) / 2)) / strc->dda.raydir.y;
-	// if (strc->dda.hit.side == 0)
-	// 	strc->dda.perpendicular = strc->dda.line_size.x - strc->dda.delta.x;
-	// else
-	// 	strc->dda.perpendicular = strc->dda.line_size.y - strc->dda.delta.y;
+		strc->dda.perpendicular = fabs(strc->dda.wall_pos.y - \
+		strc->player.pos.y + ((1 - strc->dda.step.y) / 2)) / strc->dda.raydir.y;
 }

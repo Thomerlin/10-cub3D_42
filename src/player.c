@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 22:58:00 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/09 23:12:15 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:41:05 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	rotate_player(t_strc *strc, int x, int y)
 
 void	get_player_data(t_strc *strc, int x, int y)
 {
-	// verify_surrounding(c, NULL, x, y);
 	strc->player.pos.x = x + 0.5;
 	strc->player.pos.y = y + 0.5;
 	strc->player.dir.x = 0;
@@ -57,5 +56,5 @@ void	get_player_data(t_strc *strc, int x, int y)
 	strc->player.camera.pixel.x = 0;
 	strc->player.camera.pixel.y = 0;
 	rotate_player(strc, x, y);
-	strc->map.map[x][y] = '8';
+	strc->map.map[x][y] = '0';
 }

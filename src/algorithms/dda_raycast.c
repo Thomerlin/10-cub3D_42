@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/09 23:16:51 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:47:46 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	dda(t_strc *strc)
 			strc->dda.line_size.y += strc->dda.delta.y;
 			strc->dda.hit.side = 1;
 		}
-		if (strc->map.map[(int)strc->dda.wall_pos.x][(int)strc->dda.wall_pos.y] == '1')
+		if (strc->map.map[(int)strc->dda.wall_pos.x]
+			[(int)strc->dda.wall_pos.y] == '1')
 			strc->dda.hit.hit = TRUE;
 	}
 }
-
 
 void	raycasting(t_strc *strc, int pixel)
 {
@@ -55,4 +55,3 @@ void	raycasting(t_strc *strc, int pixel)
 	if (strc->dda.hit.side == 1)
 		bresenham(&point1, &point2, strc, get_rgb(0, 0, 255));
 }
-

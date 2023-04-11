@@ -6,17 +6,17 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:58:28 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/09 20:31:32 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:47:57 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void minor_slope(t_line *line, t_strc *strc, int color)
+static void	minor_slope(t_line *line, t_strc *strc, int color)
 {
 	int	dist;
 	int	inc;
-	int point0;
+	int	point0;
 
 	if (line->start_y > line->end_y)
 		point0 = -1;
@@ -52,7 +52,7 @@ static void	bigger_slope(t_line *l, t_strc *strc, int color)
 		point0 = 1;
 	img_pixel_put(strc->img, l->start_x, l->start_y, color);
 	inc = -1;
-	dist= (2 * fabs((double)l->dist_x) - fabs((double)l->dist_y));
+	dist = (2 * fabs((double)l->dist_x) - fabs((double)l->dist_y));
 	while (++inc < fabs((double)l->dist_y))
 	{
 		l->start_y += point0;
@@ -61,8 +61,8 @@ static void	bigger_slope(t_line *l, t_strc *strc, int color)
 		else
 		{
 			l->start_x++;
-			dist += (2 * fabs((double)l->dist_x)) - (2 * fabs((double)\
-			l->dist_y));
+			dist += (2 * fabs((double)l->dist_x)) - (2 * fabs((double)
+						l->dist_y));
 		}
 		img_pixel_put(strc->img, l->start_x, l->start_y, color);
 	}

@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/09 22:48:28 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:39:33 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ void	img_pixel_put(t_image img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void background(t_strc *strc)
+void	background(t_strc *strc)
 {
 	t_vector	point1;
 	t_vector	point2;
 
 	strc->map.s_color = get_rgb(175, 173, 170);
 	strc->map.f_color = get_rgb(255, 205, 140);
-
 	point1.x = 0;
 	point2.y = 0;
 	point2.x = (double) strc->game.screen_width;
@@ -43,26 +42,26 @@ void background(t_strc *strc)
 	}
 }
 
-void	render_background(t_image img, int sky_color, int floor_color)
-{
-	int	x;
-	int	y;
+// void	render_background(t_image img, int sky_color, int floor_color)
+// {
+// 	int	x;
+// 	int	y;
 
-	y = 0;
-	while (y < 400)
-	{
-		x = 0;
-		while (x < 400)
-		{
-			if (y < 400 / 2)
-				img_pixel_put(img, x, y, sky_color);
-			else
-				img_pixel_put(img, x, y, floor_color);
-			x++;
-		}
-		y++;
-	}	
-}
+// 	y = 0;
+// 	while (y < 400)
+// 	{
+// 		x = 0;
+// 		while (x < 400)
+// 		{
+// 			if (y < 400 / 2)
+// 				img_pixel_put(img, x, y, sky_color);
+// 			else
+// 				img_pixel_put(img, x, y, floor_color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}	
+// }
 
 int	render(t_strc *strc)
 {
