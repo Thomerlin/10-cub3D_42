@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/11 17:36:34 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/13 23:04:21 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define ERROR_WALL "The map need to be close and not have spaces in the middle"
+# define ERROR_WALL "Invalid map"
 # define BREAK_ERROR "the map have 2 consecutive break lines"
 # define MUCH_PLAYER_ERROR "number of players is more than 1"
 # define WRONG_CHAR "wrong char in the map"

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/11 17:37:19 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/13 22:59:39 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,8 @@ void	check_map(t_strc *strc)
 		}
 		y++;
 	}
+	if (strc->player.player_num > 1)
+		exit_map_error(strc, MUCH_PLAYER_ERROR, NULL, FREE_MAP);
+	if (strc->player.player_num == 0)
+		exit_map_error(strc, "missing player", NULL, FREE_MAP);
 }

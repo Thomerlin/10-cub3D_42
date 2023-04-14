@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:54:48 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/11 17:26:19 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/13 23:01:15 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	load_game(t_strc *strc, char *map_path)
 {
 	load_map(map_path, strc);
 	init_init_var(strc);
-	check_chars(strc, strc->map.map);
 	strc->game.mlx_ptr = mlx_init();
 	strc->game.window_ptr = mlx_new_window(strc->game.mlx_ptr, WIDTH,
 			HEIGHT, "Cub3D");

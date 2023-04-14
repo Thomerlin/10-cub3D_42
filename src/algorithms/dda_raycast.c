@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/11 15:47:46 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/13 23:06:11 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	dda(t_strc *strc)
 			strc->dda.line_size.y += strc->dda.delta.y;
 			strc->dda.hit.side = 1;
 		}
-		if (strc->map.map[(int)strc->dda.wall_pos.x]
-			[(int)strc->dda.wall_pos.y] == '1')
+		if (strc->map.map[(int)strc->dda.wall_pos.y]
+			[(int)strc->dda.wall_pos.x] == '1')
 			strc->dda.hit.hit = TRUE;
 	}
 }

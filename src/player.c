@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 22:58:00 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/11 16:47:28 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/13 22:56:48 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	get_player_data(t_strc *strc, int x, int y)
 		strc->player.camera.plane.y = 0;
 		strc->player.camera.pixel.x = 0;
 		strc->player.camera.pixel.y = 0;
+		strc->player.player_num++;
 		rotate_player(strc, x, y);
 		strc->map.map[y][x] = '0';
 	}
