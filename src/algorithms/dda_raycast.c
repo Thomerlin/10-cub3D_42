@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/15 04:01:05 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:47:47 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	raycasting(t_strc *strc, int pixel)
 		wall_line_height = HEIGHT;
 	else
 		wall_line_height = HEIGHT / strc->dda.perpendicular;
-	point1.x = WIDTH - (double)pixel;
+	point1.x = (double)pixel;
 	point1.y = HEIGHT / 2 - wall_line_height / 2;
-	point2.x = WIDTH - (double)pixel;
+	point2.x = (double)pixel;
 	point2.y = HEIGHT / 2 + wall_line_height / 2;
 	if (strc->dda.hit.side == 0)
 		bresenham(&point1, &point2, strc, get_rgb(255, 0, 0));

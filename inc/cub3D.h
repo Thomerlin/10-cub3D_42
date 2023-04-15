@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/15 02:24:18 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:56:59 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define FREE_MAP 1
 # define FREE_STR 2
 
-# define WIDTH 	480
-# define HEIGHT	320
+# define WIDTH 	1080
+# define HEIGHT	720
 
 typedef enum s_bool
 {
@@ -64,7 +64,6 @@ typedef struct s_window
  */
 typedef struct s_game
 {
-	// t_window	window;
 	void		*window_ptr;
 	void		*mlx_ptr;
 	int			screen_width;
