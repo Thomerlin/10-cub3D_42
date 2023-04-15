@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:58:28 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/11 15:47:57 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:38:18 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	minor_slope(t_line *line, t_strc *strc, int color)
 		point0 = -1;
 	else
 		point0 = 1;
-	img_pixel_put(strc->img, line->start_x, line->start_y, color);
+	img_pixel_put(&strc->img, line->start_x, line->start_y, color);
 	dist = (2 * fabs((double) line->dist_y)) - fabs((double) line->dist_x);
 	inc = -1;
 	while (++inc < fabs((double) line->dist_x))
@@ -36,7 +36,7 @@ static void	minor_slope(t_line *line, t_strc *strc, int color)
 			dist += (2 * fabs((double) line->dist_y) - (2 * fabs((double) \
 			line->dist_x)));
 		}
-		img_pixel_put(strc->img, line->start_x, line->start_y, color);
+		img_pixel_put(&strc->img, line->start_x, line->start_y, color);
 	}
 }
 
@@ -50,7 +50,7 @@ static void	bigger_slope(t_line *l, t_strc *strc, int color)
 		point0 = -1;
 	else
 		point0 = 1;
-	img_pixel_put(strc->img, l->start_x, l->start_y, color);
+	img_pixel_put(&strc->img, l->start_x, l->start_y, color);
 	inc = -1;
 	dist = (2 * fabs((double)l->dist_x) - fabs((double)l->dist_y));
 	while (++inc < fabs((double)l->dist_y))
@@ -64,7 +64,7 @@ static void	bigger_slope(t_line *l, t_strc *strc, int color)
 			dist += (2 * fabs((double)l->dist_x)) - (2 * fabs((double)
 						l->dist_y));
 		}
-		img_pixel_put(strc->img, l->start_x, l->start_y, color);
+		img_pixel_put(&strc->img, l->start_x, l->start_y, color);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 22:58:00 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/13 22:56:48 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/15 02:27:00 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,25 @@ void	rotate_vector(t_vector *vector, double ang)
 
 void	rotate_player(t_strc *strc, int x, int y)
 {
-	if (strc->map.map[y][x] == 'N')
-	{
-		rotate_vector(&strc->player.dir, 270);
-		rotate_vector(&strc->player.camera.plane, 270);
-	}
 	if (strc->map.map[y][x] == 'E')
+	{
+		rotate_vector(&strc->player.dir, 90);
+		rotate_vector(&strc->player.camera.plane, 90);
+	}
+	else if (strc->map.map[y][x] == 'S')
 	{
 		rotate_vector(&strc->player.dir, 180);
 		rotate_vector(&strc->player.camera.plane, 180);
 	}
-	if (strc->map.map[y][x] == 'S')
+	else if (strc->map.map[y][x] == 'W')
 	{
-		rotate_vector(&strc->player.dir, 90);
-		rotate_vector(&strc->player.camera.plane, 90);
+		rotate_vector(&strc->player.dir, 270);
+		rotate_vector(&strc->player.camera.plane, 270);
+	}
+	else if (strc->map.map[y][x] == 'N')
+	{
+		rotate_vector(&strc->player.dir, 0);
+		rotate_vector(&strc->player.camera.plane, 0);
 	}
 }
 

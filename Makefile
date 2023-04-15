@@ -22,7 +22,6 @@ SRC_DIR		:=	./src ./src/render ./src/color ./src/algorithms
 SRC			:=	main.c exit.c load_game.c validate_map.c load_map.c
 SRC			+=	conversion_color.c init_all.c dda_raycast.c bresenham.c
 SRC			+=	render.c player.c
-SRC			+=	validate_map_chars.c
 
 # Object
 OBJ_DIR		:=	obj
@@ -64,7 +63,7 @@ $(LIBFT):
 
 # Run program using valgrind
 vg:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=log_vg ./$(NAME) assets/maps/test.cub
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=log_vg -s ./$(NAME) assets/maps/test.cub
 
 # Norm: checks code for norm errors
 norm:

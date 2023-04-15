@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/13 22:53:30 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:46:56 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_bool	read_map(t_strc *strc, char *gnl_buffer)
 	return (TRUE);
 }
 
-char	*check_map_line(char *map_line, char **textures, t_map map)
+char	*check_map_line(char *map_line, char **textures, t_map *map)
 {
 	int	inx;
 
@@ -83,7 +83,7 @@ char	*check_map_line(char *map_line, char **textures, t_map map)
 		}
 		free(map_line);
 		map_line = NULL;
-		map_line = get_next_line(map.path);
+		map_line = get_next_line(map->path);
 	}
 	return (map_line);
 }
@@ -93,14 +93,16 @@ t_bool	map_data(t_strc *strc)
 	char	*map_data;
 	char	**textures;
 
-	textures = malloc(sizeof(char *) * 4);
+	textures = malloc(sizeof(char *) * 5);
+	textures[4] = NULL;
 	map_data = get_next_line(strc->map.path);
-	map_data = check_map_line(map_data, textures, strc->map);
+	map_data = check_map_line(map_data, textures, &strc->map);
 	if (check_text_data(textures, strc) == FALSE)
 	{
 		ft_free_char_matrix(&textures);
 		exit_map_error(strc, TEXT_ERROR, NULL, 0);
 	}
+	ft_free_char_matrix(&textures);
 	read_map(strc, map_data);
 	check_map(strc);
 	return (TRUE);

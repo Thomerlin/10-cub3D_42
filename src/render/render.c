@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/11 15:39:33 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/14 22:34:25 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	img_pixel_put(t_image img, int x, int y, int color)
+void	img_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*pixel;
 
-	pixel = img.addr + (y * img.line_size + x * (img.bpp / 8));
+	pixel = img->addr + (y * img->line_size + x * (img->bpp / 8));
 	*(int *)pixel = color;
 }
 
@@ -28,7 +28,7 @@ void	background(t_strc *strc)
 	strc->map.s_color = get_rgb(175, 173, 170);
 	strc->map.f_color = get_rgb(255, 205, 140);
 	point1.x = 0;
-	point2.y = 0;
+	point1.y = 0;
 	point2.x = (double) strc->game.screen_width;
 	point2.y = 0;
 	while (point1.y <= (double) strc->game.screen_height)
@@ -42,31 +42,9 @@ void	background(t_strc *strc)
 	}
 }
 
-// void	render_background(t_image img, int sky_color, int floor_color)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	y = 0;
-// 	while (y < 400)
-// 	{
-// 		x = 0;
-// 		while (x < 400)
-// 		{
-// 			if (y < 400 / 2)
-// 				img_pixel_put(img, x, y, sky_color);
-// 			else
-// 				img_pixel_put(img, x, y, floor_color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}	
-// }
-
 int	render(t_strc *strc)
 {
 	background(strc);
-	// render_background(strc->img, strc->img.sky_color, strc->img.floor_color);
 	while (strc->dda.pixel < WIDTH)
 	{
 		init_camera(strc);

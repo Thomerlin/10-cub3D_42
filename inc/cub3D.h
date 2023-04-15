@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/13 23:04:21 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/15 02:24:18 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define FREE_MAP 1
 # define FREE_STR 2
 
-# define WIDTH 	1080
-# define HEIGHT	720
+# define WIDTH 	480
+# define HEIGHT	320
 
 typedef enum s_bool
 {
@@ -64,7 +64,6 @@ typedef struct s_window
  */
 typedef struct s_game
 {
-	t_image		img;
 	// t_window	window;
 	void		*window_ptr;
 	void		*mlx_ptr;
@@ -95,8 +94,8 @@ typedef struct s_draw
 
 typedef struct s_vector
 {
-	double		y;
 	double		x;
+	double		y;
 }	t_vector;
 
 typedef struct s_camera
@@ -158,7 +157,6 @@ typedef struct s_map
 	int			path;
 	int			s_color;
 	int			f_color;
-	t_player	player;
 }	t_map;
 
 /**
@@ -265,7 +263,7 @@ void	itorgb(int color, t_rgb *result);
 void	intorgb(int *r, int *g, int *b, unsigned int *color);
 
 // algorithm
-void	img_pixel_put(t_image img, int x, int y, int color);
+void	img_pixel_put(t_image *img, int x, int y, int color);
 void	init_perpendicular(t_strc *c);
 void	init_raydir_and_delta(t_strc *c);
 void	init_camera(t_strc *c);
