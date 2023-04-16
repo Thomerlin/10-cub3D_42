@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 22:58:00 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/15 02:27:00 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:38:07 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,41 @@ void	rotate_vector(t_vector *vector, double ang)
 	vector->y = temp_x * sin(rad(ang)) + vector->y * cos(rad(ang));
 }
 
-void	rotate_player(t_strc *strc, int x, int y)
+void	look(t_strc *strc)
 {
-	if (strc->map.map[y][x] == 'E')
+	if (strc->player.turn == LEFT)
 	{
-		rotate_vector(&strc->player.dir, 90);
-		rotate_vector(&strc->player.camera.plane, 90);
+		rotate_vector(&strc->player.dir, 355);
+		rotate_vector(&strc->player.camera.plane, 355);
 	}
-	else if (strc->map.map[y][x] == 'S')
+	if (strc->player.turn == RIGHT)
 	{
-		rotate_vector(&strc->player.dir, 180);
-		rotate_vector(&strc->player.camera.plane, 180);
-	}
-	else if (strc->map.map[y][x] == 'W')
-	{
-		rotate_vector(&strc->player.dir, 270);
-		rotate_vector(&strc->player.camera.plane, 270);
-	}
-	else if (strc->map.map[y][x] == 'N')
-	{
-		rotate_vector(&strc->player.dir, 0);
-		rotate_vector(&strc->player.camera.plane, 0);
+		rotate_vector(&strc->player.dir, 5);
+		rotate_vector(&strc->player.camera.plane, 5);
 	}
 }
 
-void	get_player_data(t_strc *strc, int x, int y)
+void	move(t_strc *strc)
 {
-	if (ft_strchr("NSEW", strc->map.map[y][x]))
+	if (strc->player.move == UP)
 	{
-		strc->player.pos.x = x + 0.5;
-		strc->player.pos.y = y + 0.5;
-		strc->player.dir.x = 0;
-		strc->player.dir.y = -1;
-		strc->player.camera.plane.x = 0.66;
-		strc->player.camera.plane.y = 0;
-		strc->player.camera.pixel.x = 0;
-		strc->player.camera.pixel.y = 0;
-		strc->player.player_num++;
-		rotate_player(strc, x, y);
-		strc->map.map[y][x] = '0';
+		strc->player.pos.y -= 0.1 * -strc->player.dir.y;
+		strc->player.pos.x += 0.1 * strc->player.dir.x;
 	}
+	if (strc->player.move == DOWN)
+	{
+		strc->player.pos.y -= 0.1 * strc->player.dir.y;
+		strc->player.pos.x -= 0.1 * strc->player.dir.x;
+	}
+	if (strc->player.move == LEFT)
+	{
+		strc->player.pos.y -= 0.1 * strc->player.dir.x;
+		strc->player.pos.x += 0.1 * strc->player.dir.y;
+	}
+	if (strc->player.move == RIGHT)
+	{
+		strc->player.pos.y += 0.1 * strc->player.dir.x;
+		strc->player.pos.x -= 0.1 * strc->player.dir.y;
+	}
+	look(strc);
 }

@@ -6,13 +6,15 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/15 14:56:59 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:33:39 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# define XK_MISCELLANY
 # include <X11/keysymdef.h>
+# include <X11/keysym.h>
 # include <X11/X.h>
 # include <mlx.h>
 # include "libft.h"
@@ -31,6 +33,12 @@
 
 # define WIDTH 	1080
 # define HEIGHT	720
+
+# define STOP 0
+# define UP 1
+# define DOWN 2
+# define LEFT 3
+# define RIGHT 4
 
 typedef enum s_bool
 {
@@ -111,6 +119,9 @@ typedef struct s_player
 	t_camera	camera;
 	char		player_dir;
 	int			player_num;
+	double		ang;
+	int			move;
+	int			turn;
 }	t_player;
 
 typedef struct s_line
@@ -271,7 +282,22 @@ void	init_step_xy(t_strc *c);
 void	raycasting(t_strc *c, int pixel);
 void	dda(t_strc *c);
 void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color);
+/// 
 
+// init_player
 void	get_player_data(t_strc *strc, int x, int y);
+///
+
+// player
+void	move(t_strc *strc);
+void	rotate_vector(t_vector *vector, double ang);
+void	look_left(t_strc *strc);
+void	look_right(t_strc *strc);
+///
+
+// event
+int		key_unpressed(int key, t_strc *strc);
+int		key_pressed(int key, t_strc *strc);
+///
 
 #endif

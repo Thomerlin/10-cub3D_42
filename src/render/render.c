@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/14 22:34:25 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:34:01 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int	render(t_strc *strc)
 	strc->dda.pixel = 0;
 	mlx_put_image_to_window(strc->game.mlx_ptr, strc->game.window_ptr,
 		strc->img.ptr, 0, 0);
+	move(strc);
 	return (0);
 }
