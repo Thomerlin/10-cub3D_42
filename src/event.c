@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:50:39 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/15 21:28:53 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/16 02:38:26 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	key_pressed(int key, t_strc *strc)
 {
-	if (key == XK_Escape)
+	if (key == XK_Escape || key == XK_q)
 		exit_game(strc);
 	if (key == XK_w)
 		strc->player.move = UP;
