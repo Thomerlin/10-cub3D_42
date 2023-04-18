@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/15 14:47:47 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/17 23:53:36 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,17 @@ void	raycasting(t_strc *strc, int pixel)
 	point2.x = (double)pixel;
 	point2.y = HEIGHT / 2 + wall_line_height / 2;
 	if (strc->dda.hit.side == 0)
-		bresenham(&point1, &point2, strc, get_rgb(255, 0, 0));
+	{
+		if (strc->dda.raydir.x < 0)
+			bresenham(&point1, &point2, strc, get_rgb(0, 255, 0));
+		else
+			bresenham(&point1, &point2, strc, get_rgb(255, 0, 0));
+	}
 	if (strc->dda.hit.side == 1)
-		bresenham(&point1, &point2, strc, get_rgb(0, 0, 255));
+	{
+		if (strc->dda.raydir.y < 0)
+			bresenham(&point1, &point2, strc, get_rgb(255, 210, 0));
+		else
+			bresenham(&point1, &point2, strc, get_rgb(0, 0, 255));
+	}
 }

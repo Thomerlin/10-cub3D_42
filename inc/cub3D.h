@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/15 21:33:39 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/17 23:59:04 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,6 @@ typedef struct s_texture
 	int		height;
 }	t_texture;
 
-typedef struct s_draw
-{
-	int				wall_line_height;
-	int				start;
-	int				end;
-	double			wall_x;
-}	t_draw;
-
 typedef struct s_vector
 {
 	double		x;
@@ -182,7 +174,6 @@ typedef struct s_strc
 	t_camera	camera;
 	t_map		map;
 	t_player	player;
-	t_draw		draw;
 	t_dda		dda;
 }	t_strc;
 
