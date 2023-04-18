@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/17 23:59:04 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/18 00:19:45 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,12 @@ typedef struct s_player
 	char		player_dir;
 	int			player_num;
 	double		ang;
-	int			move;
-	int			turn;
+	int			move_up;
+	int			move_down;
+	int			move_left;
+	int			move_right;
+	int			turn_left;
+	int			turn_right;
 }	t_player;
 
 typedef struct s_line

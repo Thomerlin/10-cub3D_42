@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 22:58:00 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/16 03:36:48 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/18 00:19:05 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	rotate_vector(t_vector *vector, double ang)
 
 void	look(t_strc *strc)
 {
-	if (strc->player.turn == LEFT)
+	if (strc->player.turn_left == LEFT)
 	{
 		rotate_vector(&strc->player.dir, 357);
 		rotate_vector(&strc->player.camera.plane, 357);
 	}
-	if (strc->player.turn == RIGHT)
+	if (strc->player.turn_right == RIGHT)
 	{
 		rotate_vector(&strc->player.dir, 3);
 		rotate_vector(&strc->player.camera.plane, 3);
@@ -54,16 +54,16 @@ void	collision(t_strc *strc, double y, double x)
 
 void	move(t_strc *strc)
 {
-	if (strc->player.move == UP)
+	if (strc->player.move_up == UP)
 		collision(strc, strc->player.pos.y + 0.05 * strc->player.dir.y, \
 		strc->player.pos.x + 0.05 * strc->player.dir.x);
-	if (strc->player.move == DOWN)
+	if (strc->player.move_down == DOWN)
 		collision(strc, strc->player.pos.y - 0.05 * strc->player.dir.y, \
 		strc->player.pos.x - 0.05 * strc->player.dir.x);
-	if (strc->player.move == LEFT)
+	if (strc->player.move_left == LEFT)
 		collision(strc, strc->player.pos.y - 0.05 * strc->player.dir.x, \
 		strc->player.pos.x + 0.05 * strc->player.dir.y);
-	if (strc->player.move == RIGHT)
+	if (strc->player.move_right == RIGHT)
 		collision(strc, strc->player.pos.y + 0.05 * strc->player.dir.x, \
 		strc->player.pos.x - 0.05 * strc->player.dir.y);
 	look(strc);
