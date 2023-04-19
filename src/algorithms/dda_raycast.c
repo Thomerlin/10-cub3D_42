@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/17 23:53:36 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/18 20:13:27 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	raycasting(t_strc *strc, int pixel)
 	if (strc->dda.hit.side == 1)
 	{
 		if (strc->dda.raydir.y < 0)
-			bresenham(&point1, &point2, strc, get_rgb(255, 210, 0));
+			bresenham(&point1, &point2, strc, get_rgb(255, 100, 0));
 		else
 			bresenham(&point1, &point2, strc, get_rgb(0, 0, 255));
 	}

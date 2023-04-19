@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/18 00:19:45 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:58:44 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ typedef struct s_image
 	int			endian;
 	int			width;
 	int			height;
-	int			sky_color;
-	int			floor_color;
+	int			int_path;
 }	t_image;
 
 typedef struct s_window
@@ -155,12 +154,11 @@ typedef struct s_dda
  */
 typedef struct s_map
 {
-	int			no_textu;
-	int			so_textu;
-	int			we_textu;
-	int			ea_textu;
+	t_image		no_text;
+	t_image		so_text;
+	t_image		we_text;
+	t_image		ea_text;
 	char		**map;
-	int			path;
 	int			s_color;
 	int			f_color;
 }	t_map;
@@ -198,7 +196,7 @@ void	check_chars(t_strc *strc, char **map);
  * @return TRUE if information is correct FALSE if cannot load or 
  * information is wrong
  */
-t_bool	map_data(t_strc *strc);
+t_bool	map_data(t_map *map, t_player *player, int *img_path);
 ///
 // exit
 /**
@@ -217,7 +215,7 @@ int		exit_game(t_strc *strc);
  * @param exit_mode exit with 3 diferent options: 0 only exit; 1 or FREE_MATRIX
  *  free the map and exit; 2 or FREE_STR free str param and exit
  */
-void	exit_map_error(t_strc *strc, char *message, char *str, int exit_mode);
+void	exit_map_error(t_map *map, char *message, char *str, int exit_mode);
 ///
 
 // load game
@@ -235,22 +233,22 @@ void	load_game(t_strc *strc, char *map_path);
  * @brief load textures an check textures extension
  * 
  * @param textures path of the textures
- * @param strc struct of game structs
- * @return if can open textures and extension is corret TRUE else FALSE
+ * @param map map info struct
+ * @return if can open textures and extension is corret return TRUE else FALSE
  */
-t_bool	check_text_data(char **textures, t_strc *strc);
+t_bool	check_text_data(char **textures, t_map *map);
 /**
  * @brief check if map as 2 consecutive break line 
  * 
  * @param map_line an array of the whole map
  */
-void	check_map_break_line(char *map_line, t_strc *strc);
+void	check_map_break_line(char *map_line, t_map *map);
 /**
  * @brief check all lines of the map and validate if is correct
  * 
  * @param strc struct of game structs
  */
-void	check_map(t_strc *strc);
+void	check_map(t_map *map, t_player *player);
 ///
 
 // render
@@ -260,6 +258,8 @@ void	check_map(t_strc *strc);
  * @param strc struct of game structs
  */
 int		render(t_strc *strc);
+int		get_pixel(t_image *img, int x, int y);
+void	img_pixel_put(t_image *img, int x, int y, int color);
 ///
 
 // color
@@ -268,7 +268,6 @@ void	itorgb(int color, t_rgb *result);
 void	intorgb(int *r, int *g, int *b, unsigned int *color);
 
 // algorithm
-void	img_pixel_put(t_image *img, int x, int y, int color);
 void	init_perpendicular(t_strc *c);
 void	init_raydir_and_delta(t_strc *c);
 void	init_camera(t_strc *c);
@@ -280,7 +279,7 @@ void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color);
 /// 
 
 // init_player
-void	get_player_data(t_strc *strc, int x, int y);
+void	get_player_data(t_map *map, t_player *player, int x, int y);
 ///
 
 // player

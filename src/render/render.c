@@ -6,11 +6,19 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/15 21:34:01 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:58:53 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	get_pixel(t_image *img, int x, int y)
+{
+	char	*pixel;
+
+	pixel = img->addr + (y * img->line_size + x * (img->bpp / 8));
+	return (*(int *)pixel);
+}
 
 void	img_pixel_put(t_image *img, int x, int y, int color)
 {
@@ -45,6 +53,7 @@ void	background(t_strc *strc)
 int	render(t_strc *strc)
 {
 	background(strc);
+	strc->dda.pixel = 0;
 	while (strc->dda.pixel < WIDTH)
 	{
 		init_camera(strc);
@@ -55,7 +64,6 @@ int	render(t_strc *strc)
 		raycasting(strc, strc->dda.pixel);
 		strc->dda.pixel++;
 	}
-	strc->dda.pixel = 0;
 	mlx_put_image_to_window(strc->game.mlx_ptr, strc->game.window_ptr,
 		strc->img.ptr, 0, 0);
 	move(strc);

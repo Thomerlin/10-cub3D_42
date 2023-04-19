@@ -6,41 +6,41 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/13 22:59:39 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/18 20:11:30 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_bool	check_text_data(char **textures, t_strc *strc)
+t_bool	check_text_data(char **textures, t_map *map)
 {
-	strc->map.no_textu = open(textures[0], O_RDONLY);
-	if (strc->map.no_textu < 0)
+	map->no_text.int_path = open(textures[0], O_RDONLY);
+	if (map->no_text.int_path < 0)
 		return (FALSE);
 	if (!ft_strncmp(".xpm", textures[0], 5))
 		return (FALSE);
-	strc->map.so_textu = open(textures[1], O_RDONLY);
-	if (strc->map.so_textu < 0)
+	map->so_text.int_path = open(textures[1], O_RDONLY);
+	if (map->so_text.int_path < 0)
 		return (FALSE);
 	if (!ft_strncmp(".xpm", textures[1], 5))
 		return (FALSE);
-	strc->map.we_textu = open(textures[2], O_RDONLY);
-	if (strc->map.we_textu < 0)
+	map->we_text.int_path = open(textures[2], O_RDONLY);
+	if (map->we_text.int_path < 0)
 		return (FALSE);
 	if (!ft_strncmp(".xpm", textures[2], 5))
 		return (FALSE);
-	strc->map.ea_textu = open(textures[3], O_RDONLY);
-	if (strc->map.ea_textu < 0)
+	map->ea_text.int_path = open(textures[3], O_RDONLY);
+	if (map->ea_text.int_path < 0)
 		return (FALSE);
 	if (!ft_strncmp(".xpm", textures[3], 5))
 		return (FALSE);
 	return (TRUE);
 }
 
-void	check_map_break_line(char *map_line, t_strc *strc)
+void	check_map_break_line(char *map_line, t_map *map)
 {
 	if (ft_strnstr(map_line, "\n\n", ft_strlen(map_line)) || *map_line == '\0')
-		exit_map_error(strc, BREAK_ERROR, map_line, FREE_STR);
+		exit_map_error(map, BREAK_ERROR, map_line, FREE_STR);
 }
 
 t_bool	check_vertical(char **map, int x, int y)
@@ -70,31 +70,31 @@ t_bool	check_horizontal(char **map, int x, int y)
 	return (TRUE);
 }
 
-void	check_map(t_strc *strc)
+void	check_map(t_map *map, t_player *player)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (strc->map.map[y])
+	while (map->map[y])
 	{
 		x = 0;
-		while (strc->map.map[y][x])
+		while (map->map[y][x])
 		{
-			if (ft_strchr("NSEW0", strc->map.map[y][x]))
+			if (ft_strchr("NSEW0", map->map[y][x]))
 			{
-				get_player_data(strc, x, y);
-				if (check_vertical(strc->map.map, x, y) == FALSE)
-					exit_map_error(strc, ERROR_WALL, NULL, FREE_MAP);
-				if (check_horizontal(strc->map.map, x, y) == FALSE)
-					exit_map_error(strc, ERROR_WALL, NULL, FREE_MAP);
+				get_player_data(map, player, x, y);
+				if (check_vertical(map->map, x, y) == FALSE)
+					exit_map_error(map, ERROR_WALL, NULL, FREE_MAP);
+				if (check_horizontal(map->map, x, y) == FALSE)
+					exit_map_error(map, ERROR_WALL, NULL, FREE_MAP);
 			}
 			x++;
 		}
 		y++;
 	}
-	if (strc->player.player_num > 1)
-		exit_map_error(strc, MUCH_PLAYER_ERROR, NULL, FREE_MAP);
-	if (strc->player.player_num == 0)
-		exit_map_error(strc, "missing player", NULL, FREE_MAP);
+	if (player->player_num > 1)
+		exit_map_error(map, MUCH_PLAYER_ERROR, NULL, FREE_MAP);
+	if (player->player_num == 0)
+		exit_map_error(map, "missing player", NULL, FREE_MAP);
 }
