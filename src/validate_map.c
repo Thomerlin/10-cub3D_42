@@ -6,34 +6,29 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/18 20:11:30 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/19 20:56:10 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_bool	check_text_data(char **textures, t_map *map)
+t_bool	check_data(char **data, t_map *map)
 {
-	map->no_text.int_path = open(textures[0], O_RDONLY);
-	if (map->no_text.int_path < 0)
+	if (!data[0] && !data[1] && !data[2] && !data[3] && !data[4] && !data[5])
 		return (FALSE);
-	if (!ft_strncmp(".xpm", textures[0], 5))
+	if (!ft_strncmp(".xpm", data[0], 5))
 		return (FALSE);
-	map->so_text.int_path = open(textures[1], O_RDONLY);
-	if (map->so_text.int_path < 0)
+	map->no_text.int_path = open(data[0], O_RDONLY);
+	if (!ft_strncmp(".xpm", data[1], 5))
 		return (FALSE);
-	if (!ft_strncmp(".xpm", textures[1], 5))
+	map->so_text.int_path = open(data[1], O_RDONLY);
+	if (!ft_strncmp(".xpm", data[2], 5))
 		return (FALSE);
-	map->we_text.int_path = open(textures[2], O_RDONLY);
-	if (map->we_text.int_path < 0)
+	map->we_text.int_path = open(data[2], O_RDONLY);
+	if (!ft_strncmp(".xpm", data[3], 5))
 		return (FALSE);
-	if (!ft_strncmp(".xpm", textures[2], 5))
-		return (FALSE);
-	map->ea_text.int_path = open(textures[3], O_RDONLY);
-	if (map->ea_text.int_path < 0)
-		return (FALSE);
-	if (!ft_strncmp(".xpm", textures[3], 5))
-		return (FALSE);
+	map->ea_text.int_path = open(data[3], O_RDONLY);
+	get_map_colors(map, data);
 	return (TRUE);
 }
 
@@ -61,8 +56,6 @@ t_bool	check_vertical(char **map, int x, int y)
 
 t_bool	check_horizontal(char **map, int x, int y)
 {
-	if (y == 0 || y + 1 == (int)ft_strlen(map[y]))
-		return (FALSE);
 	if (ft_strchr("NSEW10", map[y][x + 1]) == NULL)
 		return (FALSE);
 	if (ft_strchr("NSEW10", map[y][x - 1]) == NULL)

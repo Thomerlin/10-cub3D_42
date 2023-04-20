@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/18 21:58:44 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/19 20:58:26 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_rgb
 	int	r;
 	int	g;
 	int	b;
+	int	color;
 }	t_rgb;
 
 typedef struct s_texture
@@ -159,8 +160,8 @@ typedef struct s_map
 	t_image		we_text;
 	t_image		ea_text;
 	char		**map;
-	int			s_color;
-	int			f_color;
+	t_rgb		sky;
+	t_rgb		floor;
 }	t_map;
 
 /**
@@ -188,7 +189,7 @@ typedef struct s_strc
  */
 void	check_chars(t_strc *strc, char **map);
 ///
-// load map
+// load file
 /**
  * @brief check map information and load textures and map info
  * 
@@ -216,6 +217,13 @@ int		exit_game(t_strc *strc);
  *  free the map and exit; 2 or FREE_STR free str param and exit
  */
 void	exit_map_error(t_map *map, char *message, char *str, int exit_mode);
+/**
+ * @brief Get the map RGB of the sky and floor
+ * 
+ * @param map struck with map data
+ * @param data matrix with file data
+ */
+void	get_map_colors(t_map *map, char **data);
 ///
 
 // load game
@@ -236,7 +244,7 @@ void	load_game(t_strc *strc, char *map_path);
  * @param map map info struct
  * @return if can open textures and extension is corret return TRUE else FALSE
  */
-t_bool	check_text_data(char **textures, t_map *map);
+t_bool	check_data(char **data, t_map *map);
 /**
  * @brief check if map as 2 consecutive break line 
  * 

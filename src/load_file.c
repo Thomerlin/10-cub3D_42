@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_map.c                                         :+:      :+:    :+:   */
+/*   load_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/18 20:12:28 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:07:37 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ t_bool	read_map(t_map *map, char *gnl_buffer, int *img_path)
 	return (TRUE);
 }
 
-char	*check_map_line(char *map_line, char **textures, int *path)
+char	*check_map_line(char *map_line, char **info, int *path)
 {
-	int	inx;
+	int		inx;
 
 	while (map_line && is_map(map_line) == FALSE)
 	{
@@ -72,37 +72,58 @@ char	*check_map_line(char *map_line, char **textures, int *path)
 		while (map_line[inx])
 		{
 			if (ft_strncmp("NO", &map_line[inx], 3) == 0)
-				textures[0] = ft_strtrim(map_line, "NO \n");
+				info[0] = ft_strtrim(map_line, "NO \n");
 			else if (ft_strncmp("SO", &map_line[inx], 3) == 0)
-				textures[1] = ft_strtrim(map_line, "SO \n");
+				info[1] = ft_strtrim(map_line, "SO \n");
 			else if (ft_strncmp("WE", &map_line[inx], 3) == 0)
-				textures[2] = ft_strtrim(map_line, "WE \n");
+				info[2] = ft_strtrim(map_line, "WE \n");
 			else if (ft_strncmp("EA", &map_line[inx], 3) == 0)
-				textures[3] = ft_strtrim(map_line, "EA \n");
+				info[3] = ft_strtrim(map_line, "EA \n");
+			else if (ft_strncmp("F", &map_line[inx], 3) == 0)
+				info[4] = ft_strtrim(map_line, "F \n");
+			else if (ft_strncmp("C", &map_line[inx], 3) == 0)
+				info[5] = ft_strtrim(map_line, "C \n");
 			inx++;
 		}
 		free(map_line);
-		map_line = NULL;
 		map_line = get_next_line(*path);
 	}
 	return (map_line);
 }
 
+void	get_map_colors(t_map *map, char **data)
+{
+	char	**rgb;
+
+	rgb = ft_split(data[4], ',');
+	map->floor.r = ft_atoi(rgb[0]);
+	map->floor.g = ft_atoi(rgb[1]);
+	map->floor.b = ft_atoi(rgb[2]);
+	ft_free_char_matrix(&rgb);
+	rgb = ft_split(data[5], ',');
+	map->sky.r = ft_atoi(rgb[0]);
+	map->sky.g = ft_atoi(rgb[1]);
+	map->sky.b = ft_atoi(rgb[2]);
+	ft_free_char_matrix(&rgb);
+	map->floor.color = get_rgb(map->floor.r, map->floor.g, map->floor.b);
+	map->sky.color = get_rgb(map->sky.r, map->sky.g, map->sky.b);
+}
+
 t_bool	map_data(t_map *map, t_player *player, int *img_path)
 {
 	char	*map_data;
-	char	**textures;
+	char	**info;
 
-	textures = malloc(sizeof(char *) * 5);
-	textures[4] = NULL;
+	info = malloc(sizeof(char *) * 7);
+	info[7] = NULL;
 	map_data = get_next_line(*img_path);
-	map_data = check_map_line(map_data, textures, img_path);
-	if (check_text_data(textures, map) == FALSE)
+	map_data = check_map_line(map_data, info, img_path);
+	if (check_data(info, map) == FALSE)
 	{
-		ft_free_char_matrix(&textures);
+		ft_free_char_matrix(&info);
 		exit_map_error(map, TEXT_ERROR, NULL, 0);
 	}
-	ft_free_char_matrix(&textures);
+	ft_free_char_matrix(&info);
 	read_map(map, map_data, img_path);
 	check_map(map, player);
 	return (TRUE);

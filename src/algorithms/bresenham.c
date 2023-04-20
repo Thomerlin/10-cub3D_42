@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:58:28 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/15 03:47:51 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/18 23:05:10 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,31 @@ static void	minor_slope(t_line *line, t_strc *strc, int color)
 	}
 }
 
-static void	bigger_slope(t_line *l, t_strc *strc, int color)
+static void	bigger_slope(t_line *line, t_strc *strc, int color)
 {
 	int	dist;
 	int	inc;
 	int	point0;
 
-	if (l->start_y > l->end_y)
+	if (line->start_y > line->end_y)
 		point0 = -1;
 	else
 		point0 = 1;
-	img_pixel_put(&strc->img, l->start_x, l->start_y, color);
+	img_pixel_put(&strc->img, line->start_x, line->start_y, color);
 	inc = -1;
-	dist = (2 * fabs((double)l->dist_x) - fabs((double)l->dist_y));
-	while (++inc < fabs((double)l->dist_y))
+	dist = (2 * fabs((double)line->dist_x) - fabs((double)line->dist_y));
+	while (++inc < fabs((double)line->dist_y))
 	{
-		l->start_y += point0;
+		line->start_y += point0;
 		if (dist < 0)
-			dist += (2 * fabs((double)l->dist_x));
+			dist += (2 * fabs((double)line->dist_x));
 		else
 		{
-			l->start_x++;
-			dist += (2 * fabs((double)l->dist_x)) - (2 * fabs((double)
-						l->dist_y));
+			line->start_x++;
+			dist += (2 * fabs((double)line->dist_x)) - (2 * fabs((double)
+						line->dist_y));
 		}
-		img_pixel_put(&strc->img, l->start_x, l->start_y, color);
+		img_pixel_put(&strc->img, line->start_x, line->start_y, color);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/18 21:58:53 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/19 20:51:45 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	background(t_strc *strc)
 	t_vector	point1;
 	t_vector	point2;
 
-	strc->map.s_color = get_rgb(175, 173, 170);
-	strc->map.f_color = get_rgb(255, 205, 140);
 	point1.x = 0;
 	point1.y = 0;
 	point2.x = (double) strc->game.screen_width;
@@ -42,9 +40,9 @@ void	background(t_strc *strc)
 	while (point1.y <= (double) strc->game.screen_height)
 	{
 		if (point1.y <= (double) strc->game.screen_height / 2)
-			bresenham(&point1, &point2, strc, strc->map.s_color);
+			bresenham(&point1, &point2, strc, strc->map.sky.color);
 		else
-			bresenham(&point1, &point2, strc, strc->map.f_color);
+			bresenham(&point1, &point2, strc, strc->map.floor.color);
 		point1.y++;
 		point2.y++;
 	}
