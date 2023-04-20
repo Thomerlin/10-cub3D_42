@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:54:48 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/20 01:35:26 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/20 04:53:20 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	load_game(t_strc *strc, char *map_path)
 	strc->game.mlx_ptr = mlx_init();
 	strc->game.window_ptr = mlx_new_window(strc->game.mlx_ptr, WIDTH,
 			HEIGHT, "Cub3D");
-	strc->game.screen_width = WIDTH;
-	strc->game.screen_height = HEIGHT;
+	strc->game.screen_w = WIDTH;
+	strc->game.screen_h = HEIGHT;
 	strc->window.width = WIDTH;
 	strc->window.height = HEIGHT;
 	init_img(&strc->img, &strc->game, &strc->map);

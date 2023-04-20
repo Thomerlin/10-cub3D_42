@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:58:28 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/18 23:05:10 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/20 04:34:44 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	minor_slope(t_line *line, t_strc *strc, int color)
 		else
 		{
 			line->start_y = line->start_x + point0;
-			dist += (2 * fabs((double) line->dist_y) - (2 * fabs((double) \
-			line->dist_x)));
+			dist += (2 * fabs((double) line->dist_y) - (2 * fabs((double)
+							line->dist_x)));
 		}
 		img_pixel_put(&strc->img, line->start_x, line->start_y, color);
 	}

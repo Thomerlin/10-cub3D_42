@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:57:11 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/19 00:08:24 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/20 05:06:57 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,30 @@ void	dda(t_strc *strc)
 	}
 }
 
-void	raycasting(t_strc *strc, int pixel)
+void	raycasting(t_strc *strc, int pixel, t_image	img_text)
 {
-	double		wall_line_height;
-	t_vector	point1;
-	t_vector	point2;
-
-	if (HEIGHT / strc->dda.perpendicular > HEIGHT)
-		wall_line_height = HEIGHT;
-	else
-		wall_line_height = HEIGHT / strc->dda.perpendicular;
-	point1.x = (double)pixel;
-	point1.y = HEIGHT / 2 - wall_line_height / 2;
-	point2.x = (double)pixel;
-	point2.y = HEIGHT / 2 + wall_line_height / 2;
+	strc->draw.wall_line_h = (int)strc->game.screen_h / strc->dda.perpendicular;
+	strc->draw.start = -strc->draw.wall_line_h / 2 + \
+	(double)strc->game.screen_h / 2;
+	if (strc->draw.start < 0)
+		strc->draw.start = 0;
+	strc->draw.end = strc->draw.wall_line_h / 2 + \
+	(double)strc->game.screen_h / 2;
+	if (strc->draw.end >= strc->game.screen_h)
+		strc->draw.end = strc->game.screen_h - 1;
 	if (strc->dda.hit.side == 0)
 	{
 		if (strc->dda.raydir.x < 0)
-			bresenham(&point1, &point2, strc, get_rgb(0, 255, 0));
+			img_text = (strc->map.no_text);
 		else
-			bresenham(&point1, &point2, strc, get_rgb(255, 0, 0));
+			img_text = (strc->map.so_text);
 	}
-	if (strc->dda.hit.side == 1)
+	else
 	{
 		if (strc->dda.raydir.y < 0)
-			bresenham(&point1, &point2, strc, get_rgb(255, 100, 0));
+			img_text = (strc->map.no_text);
 		else
-			bresenham(&point1, &point2, strc, get_rgb(0, 0, 255));
+			img_text = (strc->map.so_text);
 	}
+	show_texture(strc, pixel, &img_text);
 }

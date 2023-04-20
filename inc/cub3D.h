@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/20 01:18:25 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/20 05:05:46 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_game
 {
 	void		*window_ptr;
 	void		*mlx_ptr;
-	int			screen_width;
-	int			screen_height;
+	int			screen_w;
+	int			screen_h;
 }	t_game;
 
 typedef struct s_rgb
@@ -84,12 +84,6 @@ typedef struct s_rgb
 	int	b;
 	int	color;
 }	t_rgb;
-
-typedef struct s_texture
-{
-	int		width;
-	int		height;
-}	t_texture;
 
 typedef struct s_vector
 {
@@ -164,6 +158,19 @@ typedef struct s_map
 	t_rgb		floor;
 }	t_map;
 
+typedef struct s_draw
+{
+	unsigned int	color;
+	int				wall_line_h;
+	int				start;
+	int				end;
+	double			wall_x;
+	int				tex_x;
+	double			step;
+	double			tex_pos;
+	int				tex_y;
+}	t_draw;
+
 /**
  * @brief an struct containing others structs of the game making easy for 
  * access
@@ -178,6 +185,7 @@ typedef struct s_strc
 	t_map		map;
 	t_player	player;
 	t_dda		dda;
+	t_draw		draw;
 }	t_strc;
 
 // validate map chars
@@ -188,7 +196,7 @@ typedef struct s_strc
  * @param map map matrix
  */
 void	check_chars(t_strc *strc, char **map);
-///
+
 // load file
 /**
  * @brief check map information and load textures and map info
@@ -198,7 +206,7 @@ void	check_chars(t_strc *strc, char **map);
  * information is wrong
  */
 t_bool	map_data(t_map *map, t_player *player, int *img_path);
-///
+
 // exit
 /**
  * @brief close window and exit of the game with success
@@ -266,40 +274,165 @@ void	check_map(t_map *map, t_player *player);
  * @param strc struct of game structs
  */
 int		render(t_strc *strc);
+
+/**
+ * @brief Get the pixel object
+ * 
+ * @param img 
+ * @param x 
+ * @param y 
+ * @return int 
+ */
 int		get_pixel(t_image *img, int x, int y);
+/**
+ * @brief 
+ * 
+ * @param img 
+ * @param x 
+ * @param y 
+ * @param color 
+ */
 void	img_pixel_put(t_image *img, int x, int y, int color);
 ///
 
 // color
+/**
+ * @brief Get the rgb object
+ * 
+ * @param r 
+ * @param g 
+ * @param b 
+ * @return int 
+ */
 int		get_rgb(int r, int g, int b);
-void	itorgb(int color, t_rgb *result);
-void	intorgb(int *r, int *g, int *b, unsigned int *color);
 
 // algorithm
+/**
+ * @brief 
+ * 
+ * @param c 
+ */
 void	init_perpendicular(t_strc *c);
+
+/**
+ * @brief 
+ * 
+ * @param c 
+ */
 void	init_raydir_and_delta(t_strc *c);
+
+/**
+ * @brief 
+ * 
+ * @param c 
+ */
 void	init_camera(t_strc *c);
+
+/**
+ * @brief 
+ * 
+ * @param c 
+ */
 void	init_dist_to_side(t_strc *c);
+
+/**
+ * @brief 
+ * 
+ * @param c 
+ */
 void	init_step_xy(t_strc *c);
-void	raycasting(t_strc *c, int pixel);
+
+/**
+ * @brief 
+ * 
+ * @param c 
+ * @param pixel 
+ */
+void	raycasting(t_strc *c, int pixel, t_image	img_text);
+
+/**
+ * @brief 
+ * 
+ * @param c 
+ */
 void	dda(t_strc *c);
+
+/**
+ * @brief 
+ * 
+ * @param point1 
+ * @param point2 
+ * @param c 
+ * @param color 
+ */
 void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color);
-/// 
 
 // init_player
+/**
+ * @brief Get the player data object
+ * 
+ * @param map 
+ * @param player 
+ * @param x 
+ * @param y 
+ */
 void	get_player_data(t_map *map, t_player *player, int x, int y);
-///
 
 // player
+/**
+ * @brief 
+ * 
+ * @param strc 
+ */
 void	move(t_strc *strc);
-void	rotate_vector(t_vector *vector, double ang);
-void	look_left(t_strc *strc);
-void	look_right(t_strc *strc);
-///
 
-// event
+/**
+ * @brief 
+ * 
+ * @param vector 
+ * @param ang 
+ */
+void	rotate_vector(t_vector *vector, double ang);
+
+/**
+ * @brief 
+ * 
+ * @param strc 
+ */
+void	look_left(t_strc *strc);
+
+/**
+ * @brief 
+ * 
+ * @param strc 
+ */
+void	look_right(t_strc *strc);
+
+/**
+ * @brief 
+ * 
+ * @param key 
+ * @param strc 
+ * @return int 
+ */
 int		key_unpressed(int key, t_strc *strc);
+
+/**
+ * @brief 
+ * 
+ * @param key 
+ * @param strc 
+ * @return int 
+ */
 int		key_pressed(int key, t_strc *strc);
-///
+
+/**
+ * @brief 
+ * 
+ * @param strc 
+ * @param pixel 
+ * @param img_text 
+ */
+void	show_texture(t_strc *strc, int pixel, t_image *img_text);
 
 #endif
