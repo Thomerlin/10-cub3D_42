@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/19 20:56:10 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/20 01:40:48 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 t_bool	check_data(char **data, t_map *map)
 {
-	if (!data[0] && !data[1] && !data[2] && !data[3] && !data[4] && !data[5])
-		return (FALSE);
-	if (!ft_strncmp(".xpm", data[0], 5))
-		return (FALSE);
-	map->no_text.int_path = open(data[0], O_RDONLY);
-	if (!ft_strncmp(".xpm", data[1], 5))
-		return (FALSE);
-	map->so_text.int_path = open(data[1], O_RDONLY);
-	if (!ft_strncmp(".xpm", data[2], 5))
-		return (FALSE);
-	map->we_text.int_path = open(data[2], O_RDONLY);
-	if (!ft_strncmp(".xpm", data[3], 5))
-		return (FALSE);
-	map->ea_text.int_path = open(data[3], O_RDONLY);
+	int	inx;
+
+	inx = 0;
+	while (data[inx])
+	{
+		if (inx <= 3)
+		{
+			if (data[inx] && !ft_strncmp(".xpm", data[inx], 5))
+				return (FALSE);
+		}
+		if (!data[inx])
+			return (FALSE);
+		inx++;
+	}
+	map->no_text.path = ft_strdup(data[0]);
+	map->so_text.path = ft_strdup(data[1]);
+	map->we_text.path = ft_strdup(data[2]);
+	map->ea_text.path = ft_strdup(data[3]);
 	get_map_colors(map, data);
 	return (TRUE);
 }

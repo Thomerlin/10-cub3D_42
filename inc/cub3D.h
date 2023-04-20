@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/19 20:58:26 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/20 01:18:25 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_image
 	int			endian;
 	int			width;
 	int			height;
-	int			int_path;
+	char		*path;
 }	t_image;
 
 typedef struct s_window

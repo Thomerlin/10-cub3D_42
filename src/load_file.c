@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/19 21:07:37 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/20 01:28:54 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_bool	is_map(char *line)
 	return (FALSE);
 }
 
-t_bool	read_map(t_map *map, char *gnl_buffer, int *img_path)
+t_bool	read_map(t_map *map, char *gnl_buffer, int *file_path)
 {
 	char	*map_line;
 	char	*map_buffer;
@@ -52,17 +52,17 @@ t_bool	read_map(t_map *map, char *gnl_buffer, int *img_path)
 		map_line = ft_strjoin(map_buffer, gnl_buffer);
 		free(map_buffer);
 		free(gnl_buffer);
-		gnl_buffer = get_next_line(*img_path);
+		gnl_buffer = get_next_line(*file_path);
 	}
 	free(gnl_buffer);
-	close(*img_path);
+	close(*file_path);
 	check_map_break_line(map_line, map);
 	map->map = ft_split(map_line, '\n');
 	free(map_line);
 	return (TRUE);
 }
 
-char	*check_map_line(char *map_line, char **info, int *path)
+char	*check_map_line(char *map_line, char **info, int *file_path)
 {
 	int		inx;
 
@@ -86,7 +86,7 @@ char	*check_map_line(char *map_line, char **info, int *path)
 			inx++;
 		}
 		free(map_line);
-		map_line = get_next_line(*path);
+		map_line = get_next_line(*file_path);
 	}
 	return (map_line);
 }
@@ -109,22 +109,22 @@ void	get_map_colors(t_map *map, char **data)
 	map->sky.color = get_rgb(map->sky.r, map->sky.g, map->sky.b);
 }
 
-t_bool	map_data(t_map *map, t_player *player, int *img_path)
+t_bool	map_data(t_map *map, t_player *player, int *file_path)
 {
 	char	*map_data;
 	char	**info;
 
 	info = malloc(sizeof(char *) * 7);
-	info[7] = NULL;
-	map_data = get_next_line(*img_path);
-	map_data = check_map_line(map_data, info, img_path);
+	info[6] = NULL;
+	map_data = get_next_line(*file_path);
+	map_data = check_map_line(map_data, info, file_path);
 	if (check_data(info, map) == FALSE)
 	{
 		ft_free_char_matrix(&info);
 		exit_map_error(map, TEXT_ERROR, NULL, 0);
 	}
 	ft_free_char_matrix(&info);
-	read_map(map, map_data, img_path);
+	read_map(map, map_data, file_path);
 	check_map(map, player);
 	return (TRUE);
 }
