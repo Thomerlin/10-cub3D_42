@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/20 05:05:34 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:21:05 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,31 @@ void	img_pixel_put(t_image *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	background(t_strc *strc)
+void	render_background(t_image *img, int sky_color, int floor_color)
 {
-	t_vector	point1;
-	t_vector	point2;
+	int	x;
+	int	y;
 
-	point1.x = 0;
-	point1.y = 0;
-	point2.x = (double) strc->game.screen_w;
-	point2.y = 0;
-	while (point1.y <= (double) strc->game.screen_h)
+	y = 0;
+	while (y < HEIGHT)
 	{
-		if (point1.y <= (double) strc->game.screen_h / 2)
-			bresenham(&point1, &point2, strc, strc->map.sky.color);
-		else
-			bresenham(&point1, &point2, strc, strc->map.floor.color);
-		point1.y++;
-		point2.y++;
-	}
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (y < HEIGHT / 2)
+				img_pixel_put(img, x, y, sky_color);
+			else
+				img_pixel_put(img, x, y, floor_color);
+			x++;
+		}
+		y++;
+	}	
 }
+
 
 int	render(t_strc *strc)
 {
-	background(strc);
+	render_background(&strc->img, strc->map.sky.color, strc->map.floor.color);
 	strc->dda.pixel = 0;
 	while (strc->dda.pixel < WIDTH)
 	{

@@ -20,7 +20,7 @@ H_INCLUDE	:=	$(addprefix -I, $(HEADER_DIR))
 # Source
 SRC_DIR		:=	./src ./src/render ./src/color ./src/algorithms
 SRC			:=	main.c exit.c load_game.c validate_map.c load_file.c
-SRC			+=	conversion_color.c init_all.c dda_raycast.c bresenham.c 
+SRC			+=	conversion_color.c init_all.c dda_raycast.c
 SRC			+=	render.c texture.c
 SRC			+=	event.c init_player.c player.c
 

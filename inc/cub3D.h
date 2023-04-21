@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/20 05:05:46 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:21:23 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,16 +356,6 @@ void	raycasting(t_strc *c, int pixel, t_image	img_text);
  * @param c 
  */
 void	dda(t_strc *c);
-
-/**
- * @brief 
- * 
- * @param point1 
- * @param point2 
- * @param c 
- * @param color 
- */
-void	bresenham(t_vector *point1, t_vector *point2, t_strc *c, int color);
 
 // init_player
 /**
