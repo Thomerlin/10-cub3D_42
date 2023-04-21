@@ -6,7 +6,7 @@
 /*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/20 22:21:23 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/21 19:18:57 by tyago-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,35 +312,35 @@ int		get_rgb(int r, int g, int b);
  * 
  * @param c 
  */
-void	init_perpendicular(t_strc *c);
+void	init_perpendicular(t_strc *strc);
 
 /**
  * @brief 
  * 
  * @param c 
  */
-void	init_raydir_and_delta(t_strc *c);
+void	init_raydir_and_delta(t_strc *strc);
 
 /**
  * @brief 
  * 
  * @param c 
  */
-void	init_camera(t_strc *c);
+void	init_camera(t_strc *strc);
 
 /**
  * @brief 
  * 
  * @param c 
  */
-void	init_dist_to_side(t_strc *c);
+void	init_dist_to_side(t_strc *strc);
 
 /**
  * @brief 
  * 
  * @param c 
  */
-void	init_step_xy(t_strc *c);
+void	init_step_xy(t_strc *strc);
 
 /**
  * @brief 
@@ -348,14 +348,14 @@ void	init_step_xy(t_strc *c);
  * @param c 
  * @param pixel 
  */
-void	raycasting(t_strc *c, int pixel, t_image	img_text);
+void	raycasting(t_strc *strc, int pixel, t_image	img_text);
 
 /**
  * @brief 
  * 
  * @param c 
  */
-void	dda(t_strc *c);
+void	dda(t_strc *strc);
 
 // init_player
 /**
