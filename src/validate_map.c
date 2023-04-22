@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 17:21:14 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:33:59 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ t_bool	check_data(char **data, t_map *map)
 	int	inx;
 
 	inx = 0;
-	if (!data[0] || !data[1] || map->no_text.path || map->so_text.path || \
-		map->we_text.path || map->ea_text.path)
+	if (!data[0] || !data[1] || !map->no_text.path || !map->so_text.path || \
+		!map->we_text.path || !map->ea_text.path)
 		return (FALSE);
-	while (inx <= 3)
+	while (inx <= 1)
 	{
-		if (!ft_strncmp(".xpm", data[inx], 5))
+		if (!ft_strncmp(".xpm", data[inx], 4))
 			return (FALSE);
 		inx++;
 	}
-	if (get_map_colors(&map->floor, data, 4) == FALSE)
+	if (get_map_colors(&map->floor, data, 0) == FALSE)
 		return (FALSE);
-	if (get_map_colors(&map->sky, data, 5) == FALSE)
+	if (get_map_colors(&map->sky, data, 1) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }
