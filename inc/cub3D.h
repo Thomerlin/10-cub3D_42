@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/21 19:18:57 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:02:09 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define BREAK_ERROR "the map have 2 consecutive break lines"
 # define MUCH_PLAYER_ERROR "number of players is more than 1"
 # define WRONG_CHAR "wrong char in the map"
-# define TEXT_ERROR "missing texture or wrong path"
+# define TEXT_ERROR "missing texture or color is wrong"
 
 # define FREE_MAP 1
 # define FREE_STR 2
@@ -206,6 +206,16 @@ void	check_chars(t_strc *strc, char **map);
  * information is wrong
  */
 t_bool	map_data(t_map *map, t_player *player, int *img_path);
+/**
+ * @brief Get the map RGB of the sky and floor
+ * 
+ * @param map struct with RGB data
+ * @param data matrix with file data
+ * @param data_inx index of the sky and floor in the data matrix
+ * @return TRUE if 
+ */
+t_bool	get_map_colors(t_rgb *map_rgb, char **data, int data_inx);
+///
 
 // exit
 /**
@@ -226,12 +236,11 @@ int		exit_game(t_strc *strc);
  */
 void	exit_map_error(t_map *map, char *message, char *str, int exit_mode);
 /**
- * @brief Get the map RGB of the sky and floor
+ * @brief exit from the game if texture have wrong path
  * 
- * @param map struck with map data
- * @param data matrix with file data
+ * @param strc struct of game structs
  */
-void	get_map_colors(t_map *map, char **data);
+void	exit_text_error(t_strc *strc);
 ///
 
 // load game

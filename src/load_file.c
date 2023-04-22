@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/20 01:28:54 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:03:50 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_bool	read_map(t_map *map, char *gnl_buffer, int *file_path)
 	return (TRUE);
 }
 
-char	*check_map_line(char *map_line, char **info, int *file_path)
+char	*check_map_line(char *map_line, char **data, int *file_path)
 {
 	int		inx;
 
@@ -72,17 +72,17 @@ char	*check_map_line(char *map_line, char **info, int *file_path)
 		while (map_line[inx])
 		{
 			if (ft_strncmp("NO", &map_line[inx], 3) == 0)
-				info[0] = ft_strtrim(map_line, "NO \n");
+				data[0] = ft_strtrim(map_line, "NO \n");
 			else if (ft_strncmp("SO", &map_line[inx], 3) == 0)
-				info[1] = ft_strtrim(map_line, "SO \n");
+				data[1] = ft_strtrim(map_line, "SO \n");
 			else if (ft_strncmp("WE", &map_line[inx], 3) == 0)
-				info[2] = ft_strtrim(map_line, "WE \n");
+				data[2] = ft_strtrim(map_line, "WE \n");
 			else if (ft_strncmp("EA", &map_line[inx], 3) == 0)
-				info[3] = ft_strtrim(map_line, "EA \n");
+				data[3] = ft_strtrim(map_line, "EA \n");
 			else if (ft_strncmp("F", &map_line[inx], 3) == 0)
-				info[4] = ft_strtrim(map_line, "F \n");
+				data[4] = ft_strtrim(map_line, "F \n");
 			else if (ft_strncmp("C", &map_line[inx], 3) == 0)
-				info[5] = ft_strtrim(map_line, "C \n");
+				data[5] = ft_strtrim(map_line, "C \n");
 			inx++;
 		}
 		free(map_line);
@@ -91,22 +91,29 @@ char	*check_map_line(char *map_line, char **info, int *file_path)
 	return (map_line);
 }
 
-void	get_map_colors(t_map *map, char **data)
+t_bool	get_map_colors(t_rgb *map_rgb, char **data, int data_inx)
 {
+	int		inx;
 	char	**rgb;
 
-	rgb = ft_split(data[4], ',');
-	map->floor.r = ft_atoi(rgb[0]);
-	map->floor.g = ft_atoi(rgb[1]);
-	map->floor.b = ft_atoi(rgb[2]);
+	inx = 0;
+	rgb = ft_split(data[data_inx], ',');
+	if (!rgb[0] || !rgb[1] || !rgb[2])
+		return (FALSE);
+	while (rgb[inx])
+	{
+		if (ft_strlen(rgb[inx]) > 3)
+			return (FALSE);
+		if (ft_strisdigit(rgb[inx]) == -1)
+			return (FALSE);
+		inx++;
+	}
+	map_rgb->r = ft_atoi(rgb[0]);
+	map_rgb->g = ft_atoi(rgb[1]);
+	map_rgb->b = ft_atoi(rgb[2]);
 	ft_free_char_matrix(&rgb);
-	rgb = ft_split(data[5], ',');
-	map->sky.r = ft_atoi(rgb[0]);
-	map->sky.g = ft_atoi(rgb[1]);
-	map->sky.b = ft_atoi(rgb[2]);
-	ft_free_char_matrix(&rgb);
-	map->floor.color = get_rgb(map->floor.r, map->floor.g, map->floor.b);
-	map->sky.color = get_rgb(map->sky.r, map->sky.g, map->sky.b);
+	map_rgb->color = get_rgb(map_rgb->r, map_rgb->g, map_rgb->b);
+	return (TRUE);
 }
 
 t_bool	map_data(t_map *map, t_player *player, int *file_path)

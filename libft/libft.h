@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/18 17:12:28 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/04 19:03:44 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 13:36:08 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*get_next_line(int fd);
 char	*ft_strchr(const char *string, int c);
 char	*ft_strrchr(const char *string, int c);
 char	*ft_strnstr(const char *bigStr, const char *littleStr, size_t len);
+int		ft_strisdigit(char *str);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 int		ft_isdigit(int c);

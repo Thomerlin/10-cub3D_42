@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyago-ri <tyago-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:16:40 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/20 22:21:05 by tyago-ri         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:48:45 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	render_background(t_image *img, int sky_color, int floor_color)
 		y++;
 	}	
 }
-
 
 int	render(t_strc *strc)
 {
