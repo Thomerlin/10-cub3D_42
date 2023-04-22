@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 15:08:29 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:32:04 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ t_bool	is_map(char *line)
 	while (line[inx])
 	{
 		if (ft_strncmp("11", &line[inx], 3) == 0)
-			return (TRUE);
-		if (ft_strncmp("01", &line[inx], 3) == 0)
-			return (TRUE);
-		if (ft_strncmp("10", &line[inx], 3) == 0)
 			return (TRUE);
 		if (ft_strncmp(" 01", &line[inx], 3) == 0)
 			return (TRUE);
@@ -111,11 +107,10 @@ t_bool	get_map_colors(t_rgb *map_rgb, char **data, int data_inx)
 		}
 		inx++;
 	}
-	map_rgb->r = ft_atoi(rgb[0]);
-	map_rgb->g = ft_atoi(rgb[1]);
-	map_rgb->b = ft_atoi(rgb[2]);
+	if (get_rgb(map_rgb, rgb) == FALSE)
+		return (FALSE);
 	ft_free_char_matrix(&rgb);
-	map_rgb->color = get_rgb(map_rgb->r, map_rgb->g, map_rgb->b);
+	map_rgb->color = decode_rgb(map_rgb->r, map_rgb->g, map_rgb->b);
 	return (TRUE);
 }
 

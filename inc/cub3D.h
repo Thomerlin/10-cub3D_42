@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 15:07:50 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:32:12 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,14 @@ void	check_map_break_line(char *map_line, t_map *map, char **data);
  * @param strc struct of game structs
  */
 void	check_map(t_map *map, t_player *player);
+/**
+ * @brief Get the rgb object
+ * 
+ * @param map_rgb struct with rgb value
+ * @param rgb rbg char to be transform in int
+ * @return FALSE if range of rgb is bigger than 255
+ */
+t_bool	get_rgb(t_rgb *map_rgb, char **rgb);
 ///
 
 // render
@@ -313,7 +321,7 @@ void	img_pixel_put(t_image *img, int x, int y, int color);
  * @param b 
  * @return int 
  */
-int		get_rgb(int r, int g, int b);
+int		decode_rgb(int r, int g, int b);
 
 // algorithm
 /**

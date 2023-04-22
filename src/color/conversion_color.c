@@ -6,13 +6,13 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 07:59:00 by tyago-ri          #+#    #+#             */
-/*   Updated: 2023/04/04 00:23:09 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:29:33 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	get_rgb(int r, int g, int b)
+int	decode_rgb(int r, int g, int b)
 {
 	int	rgb;
 

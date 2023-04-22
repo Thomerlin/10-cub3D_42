@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 15:09:12 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:32:37 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ t_bool	check_data(char **data, t_map *map)
 	return (TRUE);
 }
 
+t_bool	get_rgb(t_rgb *map_rgb, char **rgb)
+{
+	map_rgb->r = ft_atoi(rgb[0]);
+	map_rgb->g = ft_atoi(rgb[1]);
+	map_rgb->b = ft_atoi(rgb[2]);
+	if (map_rgb->r > 255 || map_rgb->g > 255 || map_rgb->b > 255)
+		return (FALSE);
+	return (TRUE);
+}
+
 void	check_map_break_line(char *map_line, t_map *map, char **data)
 {
 	if (ft_strnstr(map_line, "\n\n", ft_strlen(map_line)) || *map_line == '\0')
@@ -50,7 +60,7 @@ void	check_map_break_line(char *map_line, t_map *map, char **data)
 	}
 }
 
-t_bool	check_vertical(char **map, int x, int y)
+t_bool	check_vertical_and_horizontal(char **map, int x, int y)
 {
 	int	line_len;
 
@@ -63,11 +73,8 @@ t_bool	check_vertical(char **map, int x, int y)
 		return (FALSE);
 	if (ft_strchr("NSEW10", map[y - 1][x]) == NULL)
 		return (FALSE);
-	return (TRUE);
-}
-
-t_bool	check_horizontal(char **map, int x, int y)
-{
+	if (x == 0 || x == (int)ft_strlen(map[y]) - 1)
+		return (FALSE);
 	if (ft_strchr("NSEW10", map[y][x + 1]) == NULL)
 		return (FALSE);
 	if (ft_strchr("NSEW10", map[y][x - 1]) == NULL)
@@ -89,9 +96,7 @@ void	check_map(t_map *map, t_player *player)
 			if (ft_strchr("NSEW0", map->map[y][x]))
 			{
 				get_player_data(map, player, x, y);
-				if (check_vertical(map->map, x, y) == FALSE)
-					exit_map_error(map, ERROR_WALL, NULL, FREE_MAP);
-				if (check_horizontal(map->map, x, y) == FALSE)
+				if (check_vertical_and_horizontal(map->map, x, y) == FALSE)
 					exit_map_error(map, ERROR_WALL, NULL, FREE_MAP);
 			}
 			x++;
