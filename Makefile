@@ -64,7 +64,7 @@ $(LIBFT):
 
 # Run program using valgrind
 vg:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=log_vg -s ./$(NAME) assets/maps/maps_invalid/11-missing_C.cub
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=log_vg -s ./$(NAME) assets/maps/cube.cub
 
 # Norm: checks code for norm errors
 norm:

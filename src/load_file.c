@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 18:17:13 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:24:37 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ void	read_map(t_map *map, char *gnl_buffer, int *file_path, char **data)
 	char	*map_line;
 	char	*map_buffer;
 
-	if (ft_strncmp("\n\0", gnl_buffer, 3) == 0 || gnl_buffer == NULL)
+	if (gnl_buffer == NULL || ft_strncmp("\n\0", gnl_buffer, 3) == 0)
+	{
+		ft_free_char_matrix(&data);
 		exit_map_error(map, "Map is missing", &gnl_buffer, FREE_STR);
+	}
 	map_line = ft_strdup("");
 	while (TRUE)
 	{
