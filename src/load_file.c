@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 14:03:50 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:08:29 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ t_bool	is_map(char *line)
 	return (FALSE);
 }
 
-t_bool	read_map(t_map *map, char *gnl_buffer, int *file_path)
+void	read_map(t_map *map, char *gnl_buffer, int *file_path, char **data)
 {
 	char	*map_line;
 	char	*map_buffer;
 
 	if (ft_strncmp("\n\0", gnl_buffer, 3) == 0 || gnl_buffer == NULL)
-		exit_map_error(map, "Map is missing", gnl_buffer, FREE_STR);
+		exit_map_error(map, "Map is missing", &gnl_buffer, FREE_STR);
 	map_line = ft_strdup("");
 	while (TRUE)
 	{
@@ -56,10 +56,9 @@ t_bool	read_map(t_map *map, char *gnl_buffer, int *file_path)
 	}
 	free(gnl_buffer);
 	close(*file_path);
-	check_map_break_line(map_line, map);
+	check_map_break_line(map_line, map, data);
 	map->map = ft_split(map_line, '\n');
 	free(map_line);
-	return (TRUE);
 }
 
 char	*check_map_line(char *map_line, char **data, int *file_path)
@@ -99,13 +98,17 @@ t_bool	get_map_colors(t_rgb *map_rgb, char **data, int data_inx)
 	inx = 0;
 	rgb = ft_split(data[data_inx], ',');
 	if (!rgb[0] || !rgb[1] || !rgb[2])
+	{
+		ft_free_char_matrix(&rgb);
 		return (FALSE);
+	}
 	while (rgb[inx])
 	{
-		if (ft_strlen(rgb[inx]) > 3)
+		if (ft_strlen(rgb[inx]) > 3 || ft_strisdigit(rgb[inx]) == -1)
+		{
+			ft_free_char_matrix(&rgb);
 			return (FALSE);
-		if (ft_strisdigit(rgb[inx]) == -1)
-			return (FALSE);
+		}
 		inx++;
 	}
 	map_rgb->r = ft_atoi(rgb[0]);
@@ -119,19 +122,19 @@ t_bool	get_map_colors(t_rgb *map_rgb, char **data, int data_inx)
 t_bool	map_data(t_map *map, t_player *player, int *file_path)
 {
 	char	*map_data;
-	char	**info;
+	char	**data;
 
-	info = malloc(sizeof(char *) * 7);
-	info[6] = NULL;
+	data = malloc(sizeof(char *) * 7);
+	data[6] = NULL;
 	map_data = get_next_line(*file_path);
-	map_data = check_map_line(map_data, info, file_path);
-	if (check_data(info, map) == FALSE)
+	map_data = check_map_line(map_data, data, file_path);
+	read_map(map, map_data, file_path, data);
+	if (check_data(data, map) == FALSE)
 	{
-		ft_free_char_matrix(&info);
-		exit_map_error(map, TEXT_ERROR, NULL, 0);
+		ft_free_char_matrix(&data);
+		exit_map_error(map, TEXT_ERROR, NULL, 1);
 	}
-	ft_free_char_matrix(&info);
-	read_map(map, map_data, file_path);
+	ft_free_char_matrix(&data);
 	check_map(map, player);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:13:29 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 14:02:09 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:07:50 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ int		exit_game(t_strc *strc);
  * @param exit_mode exit with 3 diferent options: 0 only exit; 1 or FREE_MATRIX
  *  free the map and exit; 2 or FREE_STR free str param and exit
  */
-void	exit_map_error(t_map *map, char *message, char *str, int exit_mode);
+void	exit_map_error(t_map *map, char *message, char **str, int exit_mode);
 /**
  * @brief exit from the game if texture have wrong path
  * 
@@ -267,7 +267,7 @@ t_bool	check_data(char **data, t_map *map);
  * 
  * @param map_line an array of the whole map
  */
-void	check_map_break_line(char *map_line, t_map *map);
+void	check_map_break_line(char *map_line, t_map *map, char **data);
 /**
  * @brief check all lines of the map and validate if is correct
  * 

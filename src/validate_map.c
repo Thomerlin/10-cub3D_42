@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 14:02:46 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:09:12 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ t_bool	check_data(char **data, t_map *map)
 	return (TRUE);
 }
 
-void	check_map_break_line(char *map_line, t_map *map)
+void	check_map_break_line(char *map_line, t_map *map, char **data)
 {
 	if (ft_strnstr(map_line, "\n\n", ft_strlen(map_line)) || *map_line == '\0')
-		exit_map_error(map, BREAK_ERROR, map_line, FREE_STR);
+	{
+		ft_free_char_matrix(&data);
+		exit_map_error(map, BREAK_ERROR, &map_line, FREE_STR);
+	}
 }
 
 t_bool	check_vertical(char **map, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:44:44 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 13:04:05 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:38:31 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,23 @@ void	exit_text_error(t_strc *strc)
 	exit(0);
 }
 
-void	exit_map_error(t_map *map, char *message, char *str, int exit_mode)
+void	exit_map_error(t_map *map, char *message, char **str, int exit_mode)
 {
+	if (map->no_text.path)
+		free(map->no_text.path);
+	if (map->so_text.path)
+		free(map->so_text.path);
+	if (map->we_text.path)
+		free(map->we_text.path);
+	if (map->ea_text.path)
+		free(map->ea_text.path);
 	if (exit_mode == FREE_MAP)
 		ft_free_char_matrix(&map->map);
 	else if (exit_mode == FREE_STR)
-		free (str);
+	{
+		free (*str);
+		*str = NULL;
+	}
 	ft_printf("%s\n", message);
 	exit(1);
 }
