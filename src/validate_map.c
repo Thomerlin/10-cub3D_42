@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:59:08 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 16:32:37 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 17:21:14 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,15 @@ t_bool	check_data(char **data, t_map *map)
 	int	inx;
 
 	inx = 0;
-	while (inx <= 5)
+	if (!data[0] || !data[1] || map->no_text.path || map->so_text.path || \
+		map->we_text.path || map->ea_text.path)
+		return (FALSE);
+	while (inx <= 3)
 	{
-		if (inx <= 3)
-		{
-			if (!data[inx])
-				return (FALSE);
-			if (!ft_strncmp(".xpm", data[inx], 5))
-				return (FALSE);
-		}
-		if (!data[inx])
+		if (!ft_strncmp(".xpm", data[inx], 5))
 			return (FALSE);
 		inx++;
 	}
-	map->no_text.path = ft_strdup(data[0]);
-	map->so_text.path = ft_strdup(data[1]);
-	map->we_text.path = ft_strdup(data[2]);
-	map->ea_text.path = ft_strdup(data[3]);
 	if (get_map_colors(&map->floor, data, 4) == FALSE)
 		return (FALSE);
 	if (get_map_colors(&map->sky, data, 5) == FALSE)
@@ -47,7 +39,10 @@ t_bool	get_rgb(t_rgb *map_rgb, char **rgb)
 	map_rgb->g = ft_atoi(rgb[1]);
 	map_rgb->b = ft_atoi(rgb[2]);
 	if (map_rgb->r > 255 || map_rgb->g > 255 || map_rgb->b > 255)
+	{
+		ft_free_char_matrix(&rgb);
 		return (FALSE);
+	}
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:18:32 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 16:32:04 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:17:13 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ t_bool	is_map(char *line)
 	while (line[inx])
 	{
 		if (ft_strncmp("11", &line[inx], 3) == 0)
-			return (TRUE);
-		if (ft_strncmp(" 01", &line[inx], 3) == 0)
-			return (TRUE);
-		if (ft_strncmp(" 10", &line[inx], 3) == 0)
 			return (TRUE);
 		if (ft_strncmp(" 11", &line[inx], 3) == 0)
 			return (TRUE);
@@ -57,7 +53,7 @@ void	read_map(t_map *map, char *gnl_buffer, int *file_path, char **data)
 	free(map_line);
 }
 
-char	*check_map_line(char *map_line, char **data, int *file_path)
+char	*check_map_line(char *map_line, char **data, int *file_path, t_map *map)
 {
 	int		inx;
 
@@ -67,17 +63,17 @@ char	*check_map_line(char *map_line, char **data, int *file_path)
 		while (map_line[inx])
 		{
 			if (ft_strncmp("NO", &map_line[inx], 3) == 0)
-				data[0] = ft_strtrim(map_line, "NO \n");
+				map->no_text.path = ft_strtrim(map_line, "NO \n");
 			else if (ft_strncmp("SO", &map_line[inx], 3) == 0)
-				data[1] = ft_strtrim(map_line, "SO \n");
+				map->so_text.path = ft_strtrim(map_line, "SO \n");
 			else if (ft_strncmp("WE", &map_line[inx], 3) == 0)
-				data[2] = ft_strtrim(map_line, "WE \n");
+				map->we_text.path = ft_strtrim(map_line, "WE \n");
 			else if (ft_strncmp("EA", &map_line[inx], 3) == 0)
-				data[3] = ft_strtrim(map_line, "EA \n");
+				map->ea_text.path = ft_strtrim(map_line, "EA \n");
 			else if (ft_strncmp("F", &map_line[inx], 3) == 0)
-				data[4] = ft_strtrim(map_line, "F \n");
+				data[0] = ft_strtrim(map_line, "F \n");
 			else if (ft_strncmp("C", &map_line[inx], 3) == 0)
-				data[5] = ft_strtrim(map_line, "C \n");
+				data[1] = ft_strtrim(map_line, "C \n");
 			inx++;
 		}
 		free(map_line);
@@ -119,10 +115,12 @@ t_bool	map_data(t_map *map, t_player *player, int *file_path)
 	char	*map_data;
 	char	**data;
 
-	data = malloc(sizeof(char *) * 7);
-	data[6] = NULL;
+	data = malloc(sizeof(char *) * 3);
+	data[0] = NULL;
+	data[1] = NULL;
+	data[2] = NULL;
 	map_data = get_next_line(*file_path);
-	map_data = check_map_line(map_data, data, file_path);
+	map_data = check_map_line(map_data, data, file_path, map);
 	read_map(map, map_data, file_path, data);
 	if (check_data(data, map) == FALSE)
 	{

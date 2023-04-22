@@ -6,7 +6,7 @@
 /*   By: llopes-n <llopes-n@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 02:44:44 by llopes-n          #+#    #+#             */
-/*   Updated: 2023/04/22 14:38:31 by llopes-n         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:50:45 by llopes-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	destroy_img(t_strc *strc)
 	mlx_destroy_image(strc->game.mlx_ptr, strc->img.ptr);
 	if (strc->map.no_text.ptr)
 		mlx_destroy_image(strc->game.mlx_ptr, strc->map.no_text.ptr);
-	if (strc->map.no_text.ptr)
+	if (strc->map.so_text.ptr)
 		mlx_destroy_image(strc->game.mlx_ptr, strc->map.so_text.ptr);
-	if (strc->map.no_text.ptr)
+	if (strc->map.ea_text.ptr)
 		mlx_destroy_image(strc->game.mlx_ptr, strc->map.ea_text.ptr);
-	if (strc->map.no_text.ptr)
+	if (strc->map.we_text.ptr)
 		mlx_destroy_image(strc->game.mlx_ptr, strc->map.we_text.ptr);
 }
 
